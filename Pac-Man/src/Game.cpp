@@ -71,12 +71,11 @@ bool Game::ProcessInput() {
 	return user_wants_to_quit;
 }
 
-void Game::Update(float elapsed_time) {
-	
+void Game::Update(int elapsed_time) {
 	player_.Update(input_, level_, elapsed_time);
 }
 
-void Game::Render(float elapsed_time) {
+void Game::Render(int elapsed_time) {
 	//std::cout << "Rendering game.\n";
 	// Clear screen
 	graphics_.Clear();

@@ -27,10 +27,10 @@ class Game {
 		bool ProcessInput();
 
 		// Updates the game
-		void Update(float elapsed_time);
+		void Update(int elapsed_time);
 
 		// Draws window to screen
-		void Render(float elapsed_time);
+		void Render(int elapsed_time);
 
 		// Event handler
 		SDL_Event event_;

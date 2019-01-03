@@ -20,9 +20,6 @@ Tile::Tile(Texture* sprite, int pos_x, int pos_y, int tile_type) {
 }
 
 Tile::~Tile() {
-	for (unsigned i = 0; i < sprite_sheet_.size(); ++i) {
-		delete sprite_sheet_.at(i);
-	}
 }
 
 void Tile::Render(Graphics & graphics) {

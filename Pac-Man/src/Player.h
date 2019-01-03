@@ -38,14 +38,16 @@ private:
 	// Update collision box
 	void UpdateCBox();
 
-	// Moves player to the direction set
+	// If the player can move towards the desired direction, move the player
 	void Move(Level &level);
 
+	// Moves the player to the direction set
 	void MoveRight(Level &level);
 	void MoveDown(Level &level);
 	void MoveLeft(Level &level);
 	void MoveUp(Level &level);
 
+	// Check if the player can move this direction
 	bool CanMoveRight(Level &level);
 	bool CanMoveDown(Level &level);
 	bool CanMoveLeft(Level &level);
@@ -54,7 +56,7 @@ private:
 	// Handles user input
 	Input input_;
 
-	static const int PLAYER_VEL_ = 1;
+	static const int PLAYER_VEL_ = 4;
 
 	// The input direction
 	int input_direction_;

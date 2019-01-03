@@ -4,6 +4,13 @@
 
 #include <fstream>
 
+Level::~Level() {
+	for (unsigned i = 0; i < tiles_.size(); ++i) {
+		delete tiles_.at(i);
+		tiles_.at(i) = nullptr;
+	}
+}
+
 Level::Level(Data & data) {
 	if (data.GetSprites(TILE_KEY, sprite_list_)) {
 		if (ReadMapAndInstantiateTiles(data)) {

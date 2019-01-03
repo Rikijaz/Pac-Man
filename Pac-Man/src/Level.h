@@ -11,6 +11,9 @@ class Level {
 public:
 	Level() {};
 
+	// Deallocates memory
+	~Level();
+
 	Level(Data &data);
 
 	// Shows the level
