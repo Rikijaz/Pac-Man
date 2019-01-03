@@ -34,8 +34,9 @@ Player::Player(Data &data, int pos_x, int pos_y) {
 		vel_y_ = 0;
 
 		// Initialize animation frame regulators
+		frame_offset_ = 0;
 		frame_ = 0;
-		time_to_update_ = 0;
+		time_to_update_ = 100;
 		time_elapsed_ = 0;
 		is_moving_ = false;
 
@@ -43,6 +44,11 @@ Player::Player(Data &data, int pos_x, int pos_y) {
 		input_direction_ = -1;
 		curr_direction_ = -1;
 		next_direction_ = -1;
+
+		is_facing_right_ = false;
+		is_facing_down_ = false;
+		is_facing_left_ = false;
+		is_facing_up_ = false;
 
 		std::cout << "Successfully loaded Player data!\n";
 	}
@@ -54,11 +60,12 @@ Player::~Player() {}
 void Player::Update(Input &input, Level &level, int elapsed_time) {
 	ExecuteInput(input);
 	Move(level);
+	SetAnimation(elapsed_time);
 }
 
 void Player::Render(Graphics & graphics) {
 	// Show the player
-	graphics.Render(pos_x_ , pos_y_, sprite_sheet_.at(frame_));
+	graphics.Render(pos_x_ , pos_y_, sprite_sheet_.at(frame_ + frame_offset_));
 }
 
 void Player::ExecuteInput(Input &input_) {
@@ -81,6 +88,9 @@ void Player::ExecuteInput(Input &input_) {
 
 void Player::Move(Level &level) {
 	std::cout << "Player pos: " << pos_x_ << ", " << pos_y_ << "\n";
+
+	p_pos_x_ = pos_x_;
+	p_pos_y_ = pos_y_;
 
 	switch (input_direction_) {
 		case MOVING_RIGHT: {
@@ -119,18 +129,34 @@ void Player::Move(Level &level) {
 
 	switch (curr_direction_) {
 		case MOVING_RIGHT: {
+			is_facing_right_ = true;
+			is_facing_down_ = false;
+			is_facing_left_ = false;
+			is_facing_up_ = false;
 			MoveRight(level);
 			break;
 		}
 		case MOVING_DOWN: {
+			is_facing_right_ = false;
+			is_facing_down_ = true;
+			is_facing_left_ = false;
+			is_facing_up_ = false;
 			MoveDown(level);
 			break;
 		}
 		case MOVING_LEFT: {
+			is_facing_right_ = false;
+			is_facing_down_ = false;
+			is_facing_left_ = true;
+			is_facing_up_ = false;
 			MoveLeft(level);
 			break;
 		}
 		case MOVING_UP: {
+			is_facing_right_ = false;
+			is_facing_down_ = false;
+			is_facing_left_ = false;
+			is_facing_up_ = true;
 			MoveUp(level);
 			break;
 		}
@@ -139,6 +165,43 @@ void Player::Move(Level &level) {
 			break;
 		}
 	}
+
+	if (p_pos_x_ == pos_x_ && p_pos_y_ == pos_y_) {
+		is_moving_ = false;
+	}
+	else {
+		is_moving_ = true;
+	}
+}
+
+void Player::SetAnimation(int elapsed_time) {
+	if (is_facing_right_) {
+		frame_offset_ = 0;
+	}
+	if (is_facing_down_) {
+		frame_offset_ = 2;
+	}
+	if (is_facing_left_) {
+		frame_offset_ = 4;
+	}
+	if (is_facing_up_) {
+		frame_offset_ = 6;
+	}
+
+	// Regulate animation frame rate
+	time_elapsed_ += elapsed_time;
+	if (time_elapsed_ > time_to_update_) {
+		time_elapsed_ -= time_to_update_;
+		// If the player is not moving or end of animation sequence
+		if (!is_moving_ || frame_ >= ANIMATION_FRAMES_ - 1) {
+			frame_ = 0;
+		}
+		else {
+			frame_++;
+		}
+	}
+	std::cout << sprite_sheet_.size() << "\n";
+	std::cout << frame_offset_ << " " << frame_ << "\n";
 }
 
 void Player::MoveRight(Level &level) {

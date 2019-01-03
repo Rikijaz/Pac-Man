@@ -41,6 +41,9 @@ private:
 	// If the player can move towards the desired direction, move the player
 	void Move(Level &level);
 
+	// Cycle through the spritesheet appropriately
+	void SetAnimation(int elapsed_time);
+
 	// Moves the player to the direction set
 	void MoveRight(Level &level);
 	void MoveDown(Level &level);
@@ -55,8 +58,17 @@ private:
 
 	// Handles user input
 	Input input_;
+	
+	std::vector<Texture*> curr_animations;
 
+	// Player velocity
 	static const int PLAYER_VEL_ = 4;
+
+	// Number of animation frames
+	static const int ANIMATION_FRAMES_ = 2;
+
+	// Frame index offset
+	int frame_offset_;
 
 	// The input direction
 	int input_direction_;
@@ -66,6 +78,12 @@ private:
 
 	// The direction the player will move when possible
 	int next_direction_;
+
+	// Check if the player is facing this direction
+	bool is_facing_right_;
+	bool is_facing_down_;
+	bool is_facing_left_;
+	bool is_facing_up_;
 };
 
 #endif // !PLAYER_H
