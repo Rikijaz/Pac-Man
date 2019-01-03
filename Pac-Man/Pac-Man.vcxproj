@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Character.cpp" />
+    <ClCompile Include="src\Data.cpp" />
+    <ClCompile Include="src\Entity.cpp" />
+    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\Graphics.cpp" />
+    <ClCompile Include="src\Input.cpp" />
+    <ClCompile Include="src\Level.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\Texture.cpp" />
+    <ClCompile Include="src\Tile.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Level.h" />
+    <ClInclude Include="src\Character.h" />
+    <ClInclude Include="src\Data.h" />
+    <ClInclude Include="src\Debug.h" />
+    <ClInclude Include="src\Entity.h" />
+    <ClInclude Include="src\Game.h" />
+    <ClInclude Include="src\Globals.h" />
+    <ClInclude Include="src\Graphics.h" />
+    <ClInclude Include="src\Input.h" />
+    <ClInclude Include="src\Player.h" />
+    <ClInclude Include="src\Texture.h" />
+    <ClInclude Include="src\Tile.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="assets\sprite_data.txt" />
+    <Text Include="data\assets_data.txt" />
+    <Text Include="data\map.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\sprites\pacman_tile_sheet_1.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_10.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_11.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_12.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_13.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_14.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_15.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_16.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_17.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_18.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_19.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_2.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_20.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_21.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_22.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_23.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_24.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_25.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_26.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_27.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_28.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_29.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_3.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_30.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_31.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_4.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_5.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_6.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_7.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_8.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_9.png" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{70252597-1335-4708-B09B-D38C1F3FDB2B}</ProjectGuid>
+    <RootNamespace>PacMan</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>C:\Users\rikij\Documents\SDL2\SDL2_image-2.0.4\include;C:\Users\rikij\Documents\SDL2\SDL2-2.0.9\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>C:\Users\rikij\Documents\SDL2\SDL2_image-2.0.4\lib\x64;C:\Users\rikij\Documents\SDL2\SDL2-2.0.9\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
