@@ -5,9 +5,19 @@
 #include <fstream>
 
 Level::~Level() {
-	for (unsigned i = 0; i < tiles_.size(); ++i) {
-		delete tiles_.at(i);
-		tiles_.at(i) = nullptr;
+	for (unsigned i = 0; i < collision_tiles_.size(); ++i) {
+		delete collision_tiles_.at(i);
+		collision_tiles_.at(i) = nullptr;
+	}
+
+	for (unsigned i = 0; i < pac_dots_.size(); ++i) {
+		delete pac_dots_.at(i);
+		pac_dots_.at(i) = nullptr;
+	}
+
+	for (unsigned i = 0; i < pac_pellets_.size(); ++i) {
+		delete pac_pellets_.at(i);
+		pac_pellets_.at(i) = nullptr;
 	}
 }
 
@@ -23,13 +33,37 @@ Level::Level(Data & data) {
 }
 
 void Level::Render(Graphics & graphics) {
-	for (unsigned i = 0; i < tiles_.size(); ++i) {
-		tiles_.at(i)->Render(graphics);
+	for (unsigned i = 0; i < collision_tiles_.size(); ++i) {
+		collision_tiles_.at(i)->Render(graphics);
+	}
+	for (unsigned i = 0; i < pac_dots_.size(); ++i) {
+		pac_dots_.at(i)->Render(graphics);
+	}
+	for (unsigned i = 0; i < pac_pellets_.size(); ++i) {
+		pac_pellets_.at(i)->Render(graphics);
 	}
 }
 
-std::vector<Tile*> Level::GetTiles() {
-	return tiles_;
+std::vector<Tile*> Level::GetCollisionTiles() {
+	return collision_tiles_;
+}
+
+std::vector<Tile*> Level::GetPacDots() {
+	return pac_dots_;
+}
+
+std::vector<Tile*> Level::GetPacPellets() {
+	return pac_pellets_;
+}
+
+void Level::RemovePacDot(int index) {
+	delete pac_dots_.at(index);
+	pac_dots_.erase(pac_dots_.begin() + index);
+}
+
+void Level::RemovePacPellet(int index) {
+	delete pac_pellets_.at(index);
+	pac_pellets_.erase(pac_pellets_.begin() + index);
 }
 
 bool Level::ReadMapAndInstantiateTiles(Data &data) {
@@ -69,14 +103,19 @@ bool Level::ReadMapAndInstantiateTiles(Data &data) {
 			}
 
 			// If the number is a valid tile number
-			if ((tile_type >= 1) && (tile_type < sprite_list_.size() + 1)) {
-
-				tiles_.push_back(new Tile(sprite_list_.at(tile_type - 1), x, y, tile_type));
+			if ((tile_type >= 1) && (tile_type <= TOTAL_COLLISION_TILES_)) {
+				collision_tiles_.push_back(new Tile(sprite_list_.at(tile_type - 1), x, y, tile_type));
 			}
-			// If we don't recognize the tile type
+			else if (tile_type == TOTAL_PAC_DOTS_) {
+				pac_dots_.push_back(new Tile(sprite_list_.at(tile_type - 1), x, y, tile_type));
+			}
+			else if (tile_type == TOTAL_PAC_PELLETS_) {
+				pac_pellets_.push_back(new Tile(sprite_list_.at(tile_type - 1), x, y, tile_type));
+			}
 			else if (tile_type == 0) {
 
 			}
+			// If we don't recognize the tile type
 			else {
 				// Stop loading map
 				std::cout << "Error loading map: Invalid tile type at " << i << "\n";

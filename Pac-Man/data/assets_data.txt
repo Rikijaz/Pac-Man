@@ -1,5 +1,5 @@
 *Tiles
-31
+33
 pacman_tile_sheet_1.png
 pacman_tile_sheet_2.png
 pacman_tile_sheet_3.png
@@ -31,6 +31,8 @@ pacman_tile_sheet_28.png
 pacman_tile_sheet_29.png
 pacman_tile_sheet_30.png
 pacman_tile_sheet_31.png
+pacman_tile_sheet_32.png
+pacman_tile_sheet_33.png
 *PacMan
 8
 pac-man_1.png

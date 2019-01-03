@@ -35,11 +35,11 @@ private:
 	// If tile collision, get collided tile's collision box
 	bool GetCollidedTileCBox(std::vector<Tile*> collision_tiles, SDL_Rect &cbox);
 
-	// Update collision box
-	void UpdateCBox();
-
 	// If the player can move towards the desired direction, move the player
 	void Move(Level &level);
+
+	// If the player collides with a dot, eat it
+	void EatDot(Level &level);
 
 	// Cycle through the spritesheet appropriately
 	void SetAnimation(int elapsed_time);
@@ -55,6 +55,9 @@ private:
 	bool CanMoveDown(Level &level);
 	bool CanMoveLeft(Level &level);
 	bool CanMoveUp(Level &level);
+
+	// Update collision box
+	void UpdateCBox();
 
 	// Handles user input
 	Input input_;
@@ -84,6 +87,10 @@ private:
 	bool is_facing_down_;
 	bool is_facing_left_;
 	bool is_facing_up_;
+
+	// Dots eaten counter
+	int pac_dots_eaten_;
+	int pac_pellets_eaten_;
 };
 
 #endif // !PLAYER_H

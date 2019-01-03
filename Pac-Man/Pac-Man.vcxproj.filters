@@ -188,5 +188,35 @@
     <Image Include="assets\sprites\pacman_tile_sheet_8.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="assets\sprites\Pac-Man_8.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\sprites\Pac-Man_7.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\sprites\Pac-Man_5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\sprites\Pac-Man_3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\sprites\Pac-Man_1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\sprites\Pac-Man_4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\sprites\Pac-Man_6.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\sprites\Pac-Man_2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\sprites\pacman_tile_sheet_32.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\sprites\pacman_tile_sheet_33.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

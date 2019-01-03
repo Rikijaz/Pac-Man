@@ -50,6 +50,10 @@ Player::Player(Data &data, int pos_x, int pos_y) {
 		is_facing_left_ = false;
 		is_facing_up_ = false;
 
+		// Initialize counters
+		pac_dots_eaten_ = 0;
+		pac_pellets_eaten_ = 0;
+
 		std::cout << "Successfully loaded Player data!\n";
 	}
 }
@@ -60,6 +64,7 @@ Player::~Player() {}
 void Player::Update(Input &input, Level &level, int elapsed_time) {
 	ExecuteInput(input);
 	Move(level);
+	EatDot(level);
 	SetAnimation(elapsed_time);
 }
 
@@ -174,6 +179,21 @@ void Player::Move(Level &level) {
 	}
 }
 
+void Player::EatDot(Level & level) {
+	for (unsigned i = 0; i < level.GetPacDots().size(); ++i) {
+		if (CheckCollision(level.GetPacDots().at(i)->GetCBox())) {
+			level.RemovePacDot(i);
+			pac_dots_eaten_++;
+		}
+	}
+	for (unsigned i = 0; i < level.GetPacPellets().size(); ++i) {
+		if (CheckCollision(level.GetPacPellets().at(i)->GetCBox())) {
+			level.RemovePacPellet(i);
+			pac_pellets_eaten_++;
+		}
+	}
+}
+
 void Player::SetAnimation(int elapsed_time) {
 	if (is_facing_right_) {
 		frame_offset_ = 0;
@@ -208,7 +228,7 @@ void Player::MoveRight(Level &level) {
 	pos_x_ += PLAYER_VEL_;
 	UpdateCBox();
 	SDL_Rect collided_tile_cbox;
-	if (GetCollidedTileCBox(level.GetTiles(), collided_tile_cbox)) {
+	if (GetCollidedTileCBox(level.GetCollisionTiles(), collided_tile_cbox)) {
 		int intersect_dis = abs(cbox_.w - abs(collided_tile_cbox.x - cbox_.x));
 		pos_x_ -= intersect_dis;
 		UpdateCBox();
@@ -219,7 +239,7 @@ void Player::MoveDown(Level &level) {
 	pos_y_ += PLAYER_VEL_;
 	UpdateCBox();
 	SDL_Rect collided_tile_cbox;
-	if (GetCollidedTileCBox(level.GetTiles(), collided_tile_cbox)) {
+	if (GetCollidedTileCBox(level.GetCollisionTiles(), collided_tile_cbox)) {
 		int intersect_dis = abs(cbox_.h - abs(collided_tile_cbox.y - cbox_.y));
 		pos_y_ -= intersect_dis;
 		UpdateCBox();
@@ -230,7 +250,7 @@ void Player::MoveLeft(Level &level) {
 	pos_x_ -= PLAYER_VEL_;
 	UpdateCBox();
 	SDL_Rect collided_tile_cbox;
-	if (GetCollidedTileCBox(level.GetTiles(), collided_tile_cbox)) {
+	if (GetCollidedTileCBox(level.GetCollisionTiles(), collided_tile_cbox)) {
 		int intersect_dis = abs(cbox_.w - abs(collided_tile_cbox.x - cbox_.x));
 		pos_x_ += intersect_dis;
 		UpdateCBox();
@@ -241,7 +261,7 @@ void Player::MoveUp(Level &level) {
 	pos_y_ -= PLAYER_VEL_;
 	UpdateCBox();
 	SDL_Rect collided_tile_cbox;
-	if (GetCollidedTileCBox(level.GetTiles(), collided_tile_cbox)) {
+	if (GetCollidedTileCBox(level.GetCollisionTiles(), collided_tile_cbox)) {
 		int intersect_dis = abs(cbox_.h - abs(collided_tile_cbox.y - cbox_.y));
 		pos_y_ += intersect_dis;
 		UpdateCBox();
@@ -255,7 +275,7 @@ bool Player::CanMoveRight(Level & level) {
 	pos_x_ += PLAYER_VEL_;
 	UpdateCBox();
 	SDL_Rect collided_tile_cbox;
-	if (GetCollidedTileCBox(level.GetTiles(), collided_tile_cbox)) {
+	if (GetCollidedTileCBox(level.GetCollisionTiles(), collided_tile_cbox)) {
 		can_move_right = false;
 	}
 
@@ -272,7 +292,7 @@ bool Player::CanMoveDown(Level & level) {
 	pos_y_ += PLAYER_VEL_;
 	UpdateCBox();
 	SDL_Rect collided_tile_cbox;
-	if (GetCollidedTileCBox(level.GetTiles(), collided_tile_cbox)) {
+	if (GetCollidedTileCBox(level.GetCollisionTiles(), collided_tile_cbox)) {
 		can_move_down = false;
 	}
 
@@ -289,7 +309,7 @@ bool Player::CanMoveLeft(Level & level) {
 	pos_x_ -= PLAYER_VEL_;
 	UpdateCBox();
 	SDL_Rect collided_tile_cbox;
-	if (GetCollidedTileCBox(level.GetTiles(), collided_tile_cbox)) {
+	if (GetCollidedTileCBox(level.GetCollisionTiles(), collided_tile_cbox)) {
 		can_move_left = false;
 	}
 
@@ -306,7 +326,7 @@ bool Player::CanMoveUp(Level & level) {
 	pos_y_ -= PLAYER_VEL_;
 	UpdateCBox();
 	SDL_Rect collided_tile_cbox;
-	if (GetCollidedTileCBox(level.GetTiles(), collided_tile_cbox)) {
+	if (GetCollidedTileCBox(level.GetCollisionTiles(), collided_tile_cbox)) {
 		can_move_up = false;
 	}
 
