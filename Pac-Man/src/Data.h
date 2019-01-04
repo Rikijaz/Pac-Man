@@ -32,13 +32,16 @@ public:
 private:
 	// Load all textures into texture_directory_
 	bool LoadTextures(Graphics &graphics);
-	
+
+
 	// Contains all the sprites 
 	std::vector<Textures> sprite_directory_;
 
-	const std::string DATA_FILE_PATH_ = "data/assets_data.txt";
+	const std::string ASSETS_DATA_FILE_PATH_ = "data/assets_data.txt";
 
 	const std::string SPRITE_FILE_PATH_ = "assets/sprites/";
+
+	const std::string FONT_FILE_PATH = "assets/fonts/";
 };
 
 

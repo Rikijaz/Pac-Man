@@ -8,6 +8,7 @@
 #include "Data.h"
 #include "Input.h"
 #include "Level.h"
+#include "Hud.h"
 
 #include <SDL.h>
 
@@ -49,6 +50,9 @@ class Game {
 
 		// Handles user input
 		Input input_;
+
+		// Displays user info
+		Hud hud_;
 };
 
 #endif // !GAME_H

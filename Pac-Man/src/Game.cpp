@@ -13,7 +13,8 @@ const int MS_PER_UPDATE = 16;
 Game::Game() : 
 		data_ (graphics_), 
 		player_(data_, 416, 448),
-		level_(data_) {
+		level_(data_),
+		hud_(data_) {
 	std::cout << "Game data loaded!\n";
 	GameLoop();
 }
@@ -81,8 +82,11 @@ void Game::Render(int elapsed_time) {
 	graphics_.Clear();
 
 	// Render screen
-	player_.Render(graphics_);
 	level_.Render(graphics_);
+	player_.Render(graphics_);
+	hud_.Render(graphics_);
+	
+
 
 	//Update screen
 	graphics_.Update();
