@@ -45,6 +45,12 @@ pac-man_5.png
 pac-man_6.png
 pac-man_7.png
 pac-man_8.png
+*Blinky
+4
+blinky_1.png
+blinky_2.png
+blinky_3.png
+blinky_4.png
 *Fonts
 42
 pacman_font_1.png

@@ -99,6 +99,10 @@
     <Image Include="assets\fonts\pacman_font_7.png" />
     <Image Include="assets\fonts\pacman_font_8.png" />
     <Image Include="assets\fonts\pacman_font_9.png" />
+    <Image Include="assets\sprites\blinky_1.png" />
+    <Image Include="assets\sprites\blinky_2.png" />
+    <Image Include="assets\sprites\blinky_3.png" />
+    <Image Include="assets\sprites\blinky_4.png" />
     <Image Include="assets\sprites\Pac-Man_1.png" />
     <Image Include="assets\sprites\Pac-Man_2.png" />
     <Image Include="assets\sprites\Pac-Man_3.png" />

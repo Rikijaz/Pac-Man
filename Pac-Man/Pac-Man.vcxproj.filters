@@ -372,5 +372,17 @@
     <Image Include="assets\fonts\pacman_font_36.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="assets\sprites\blinky_1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\sprites\blinky_3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\sprites\blinky_4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\sprites\blinky_2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
