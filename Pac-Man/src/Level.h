@@ -7,6 +7,10 @@
 #include "Data.h"
 #include "Tile.h"
 
+struct TilePos {
+	int tile_pos_x_;
+	int tile_pos_y_;
+};
 
 class Level {
 public:
@@ -19,6 +23,12 @@ public:
 
 	// Shows the level
 	void Render(Graphics &graphics);
+
+	void SetCharacterTilePos(int char_key, int tile_pos_x, int tile_pos_y);
+
+	int GetCharacterTilePosX(int char_key);
+
+	int GetCharacterTilePosY(int char_key);
 
 	// Returns teleport_tiles_
 	std::vector<Tile*> GetTeleportTiles();
@@ -39,6 +49,8 @@ public:
 	void RemovePacPellet(int index);
 
 private:
+	static const int MAX_CHARACTERS = 5;
+
 	const std::string MAP_FILE_PATH_ = "data/map.txt";
 	const std::string TILE_KEY = "Tiles";
 
@@ -62,6 +74,8 @@ private:
 
 	// Read in the map and instantiate tiles
 	bool ReadMapAndInstantiateTiles(Data &data);
+
+	TilePos character_tile_pos[MAX_CHARACTERS];
 
 	std::vector<Tile*> teleport_tiles_;
 	std::vector<Tile*> collision_tiles_;
