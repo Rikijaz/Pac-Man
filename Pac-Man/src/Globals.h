@@ -8,3 +8,8 @@ namespace GLOBALS {
 	const int LEVEL_WIDTH = 896;
 	const int LEVEL_HEIGHT = 1152;
 }
+
+struct Pos {
+	int x_;
+	int y_;
+};

@@ -24,9 +24,6 @@ public:
 	// Updates the player
 	virtual void Update(Level &level, int elapsed_time);
 
-	// Calculate the path to the player
-	virtual void CalculatePath();
-
 	// Shows the player on the screen
 	virtual void Render(Graphics &graphics);
 

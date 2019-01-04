@@ -7,9 +7,13 @@
 #include "Data.h"
 #include "Tile.h"
 
-struct TilePos {
-	int tile_pos_x_;
-	int tile_pos_y_;
+#include<map>
+
+struct GridTile {
+	int x_ = -1;
+	int y_ = -1;
+	int type_ = -1;
+	std::vector<Pos> neighbors_;
 };
 
 class Level {
@@ -24,11 +28,11 @@ public:
 	// Shows the level
 	void Render(Graphics &graphics);
 
-	void SetCharacterTilePos(int char_key, int tile_pos_x, int tile_pos_y);
+	void SetCharacterGridTile(int char_key, int tile_pos_x, int tile_pos_y);
 
-	int GetCharacterTilePosX(int char_key);
+	int GetCharacterGridTileX(int char_key);
 
-	int GetCharacterTilePosY(int char_key);
+	int GetCharacterGridTileY(int char_key);
 
 	// Returns teleport_tiles_
 	std::vector<Tile*> GetTeleportTiles();
@@ -47,6 +51,8 @@ public:
 
 	// Remove a Pac-Pellet
 	void RemovePacPellet(int index);
+
+	std::map<int, std::map<int, GridTile>> grid_map_;
 
 private:
 	static const int MAX_CHARACTERS = 5;
@@ -71,12 +77,16 @@ private:
 	static const int R_TELE_ENTRY_POS_X_OFFSET_ = 64;
 	static const int R_TELE_EXIT_POS_X_OFFSET_ = -32;
 
-
-	// Read in the map and instantiate tiles
+	// Read in the map and initialize path_map_ and instantiate tiles and insert 
+	// them into their appropriate containers
 	bool ReadMapAndInstantiateTiles(Data &data);
 
-	TilePos character_tile_pos[MAX_CHARACTERS];
+	// Initialize path_map_'s grid_tile's neighbors
+	void SetMapNeighbors();
 
+	GridTile character_tile_pos[MAX_CHARACTERS];
+
+	std::vector<Tile*> path_tiles_;
 	std::vector<Tile*> teleport_tiles_;
 	std::vector<Tile*> collision_tiles_;
 	std::vector<Tile*> pac_dots_;

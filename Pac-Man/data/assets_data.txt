@@ -1,5 +1,6 @@
 *Tiles
-35
+36
+pacman_tile_sheet_0.png
 pacman_tile_sheet_1.png
 pacman_tile_sheet_2.png
 pacman_tile_sheet_3.png

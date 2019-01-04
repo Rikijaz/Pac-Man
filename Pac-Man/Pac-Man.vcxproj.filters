@@ -408,5 +408,8 @@
     <Image Include="assets\sprites\blinky_8.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="assets\sprites\pacman_tile_sheet_0.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -42,8 +42,7 @@ protected:
 	int frame_offset_;
 
 	// The previous X and Y offsets of the entity
-	int p_pos_x_;
-	int p_pos_y_;
+	Pos p_pos_;
 
 	// The velocity of the character
 	const int VEL_;

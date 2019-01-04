@@ -5,45 +5,45 @@
 Character::Character(int vel) : VEL_(vel) {}
 
 void Character::MoveRight(Level &level) {
-	pos_x_ += VEL_;
+	pos_.x_ += VEL_;
 	UpdateCBox();
 	SDL_Rect collided_tile_cbox;
 	if (GetCollidedTileCBox(level.GetCollisionTiles(), collided_tile_cbox)) {
 		int intersect_dis = abs(cbox_.w - abs(collided_tile_cbox.x - cbox_.x));
-		pos_x_ -= intersect_dis;
+		pos_.x_ -= intersect_dis;
 		UpdateCBox();
 	}
 }
 
 void Character::MoveDown(Level &level) {
-	pos_y_ += VEL_;
+	pos_.y_ += VEL_;
 	UpdateCBox();
 	SDL_Rect collided_tile_cbox;
 	if (GetCollidedTileCBox(level.GetCollisionTiles(), collided_tile_cbox)) {
 		int intersect_dis = abs(cbox_.h - abs(collided_tile_cbox.y - cbox_.y));
-		pos_y_ -= intersect_dis;
+		pos_.y_ -= intersect_dis;
 		UpdateCBox();
 	}
 }
 
 void Character::MoveLeft(Level &level) {
-	pos_x_ -= VEL_;
+	pos_.x_ -= VEL_;
 	UpdateCBox();
 	SDL_Rect collided_tile_cbox;
 	if (GetCollidedTileCBox(level.GetCollisionTiles(), collided_tile_cbox)) {
 		int intersect_dis = abs(cbox_.w - abs(collided_tile_cbox.x - cbox_.x));
-		pos_x_ += intersect_dis;
+		pos_.x_ += intersect_dis;
 		UpdateCBox();
 	}
 }
 
 void Character::MoveUp(Level &level) {
-	pos_y_ -= VEL_;
+	pos_.y_ -= VEL_;
 	UpdateCBox();
 	SDL_Rect collided_tile_cbox;
 	if (GetCollidedTileCBox(level.GetCollisionTiles(), collided_tile_cbox)) {
 		int intersect_dis = abs(cbox_.h - abs(collided_tile_cbox.y - cbox_.y));
-		pos_y_ += intersect_dis;
+		pos_.y_ += intersect_dis;
 		UpdateCBox();
 	}
 }
@@ -94,6 +94,6 @@ void Character::SetAnimation(int elapsed_time) {
 }
 
 void Character::UpdateCBox() {
-	cbox_.x = pos_x_;
-	cbox_.y = pos_y_;
+	cbox_.x = pos_.x_;
+	cbox_.y = pos_.y_;
 }

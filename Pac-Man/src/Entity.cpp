@@ -4,12 +4,8 @@
 
 #include <iostream>
 
-int Entity::GetPosX() {
-	return pos_x_;
-}
-
-int Entity::GetPosY() {
-	return pos_y_;
+Pos Entity::GetPos() {
+	return pos_;
 }
 
 SDL_Rect Entity::GetCBox() {

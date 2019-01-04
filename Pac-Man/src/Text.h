@@ -23,8 +23,7 @@ public:
 
 private:
 	// The X and Y offsets of the text
-	int pos_x_;
-	int pos_y_;
+	Pos pos_;
 
 	Texture* texture_;
 	char char_;

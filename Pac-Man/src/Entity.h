@@ -5,7 +5,6 @@
 
 #include "Graphics.h"
 #include "Texture.h"
-#include "Globals.h"
 
 #include <SDL.h>
 #include <vector>
@@ -15,11 +14,8 @@ public:
 	// Shows entity on the screen
 	virtual void Render(Graphics &graphics) = 0;
 
-	// Returns pos_x_
-	int GetPosX();
-
-	// Returns pos_y_
-	int GetPosY();
+	// Returns pos_
+	Pos GetPos();
 
 	// Returns cbox_
 	SDL_Rect GetCBox();
@@ -29,8 +25,7 @@ protected:
 	bool CheckCollision(SDL_Rect cbox);
 
 	// The X and Y offsets of the entity
-	int pos_x_;
-	int pos_y_;
+	Pos pos_;
 
 	// The collision box 
 	SDL_Rect cbox_;

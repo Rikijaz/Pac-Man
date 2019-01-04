@@ -1,11 +1,10 @@
 // Graphics.cpp : Defines the Graphics class's functions
 
+#include "Graphics.h"
+
 #include <SDL.h>
 #include <SDL_image.h>
 #include <iostream>
-
-#include "Globals.h"
-#include "Graphics.h"
 
 Graphics::Graphics() {
 	if (Initialize()) {
@@ -70,9 +69,9 @@ void Graphics::Clear() {
 	SDL_RenderClear(renderer_);
 }
 
-void Graphics::Render(int x, int y, Texture* texture, SDL_Rect * clip) {
+void Graphics::Render(Pos pos, Texture* texture, SDL_Rect * clip) {
 	// Set rendering space and render to screen
-	SDL_Rect render_rect = { x, y, texture->GetWidth(), texture->GetHeight() };
+	SDL_Rect render_rect = { pos.x_, pos.y_, texture->GetWidth(), texture->GetHeight() };
 
 	// Set clip rendering dimensions
 	if (clip != NULL) {

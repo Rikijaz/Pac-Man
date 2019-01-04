@@ -21,15 +21,17 @@ Player::Player(Data &data, int pos_x, int pos_y) : Character(PLAYER_VEL_) {
 		std::cout << "Failed to retrieve textures from my_data_!\n";
 	}
 	else {
+		// Initialize the offsets
+		pos_.x_ = pos_x;
+		pos_.y_ = pos_y;
+
 		// Initialize the collision box dimensions
 		cbox_.w = sprite_sheet_.at(0)->GetWidth();
 		cbox_.h = sprite_sheet_.at(0)->GetHeight();
-		cbox_.x = pos_x_;
-		cbox_.y = pos_y_;
+		cbox_.x = pos_.x_;
+		cbox_.y = pos_.y_;
 
-		// Initialize the offsets
-		pos_x_ = pos_x;
-		pos_y_ = pos_y;
+		
 
 		// Initialize the velocity
 		vel_x_ = 0;
@@ -72,7 +74,7 @@ void Player::Update(Input &input, Level &level, int elapsed_time) {
 
 void Player::Render(Graphics & graphics) {
 	// Show the player
-	graphics.Render(pos_x_, pos_y_, sprite_sheet_.at(frame_ + frame_offset_));
+	graphics.Render(pos_, sprite_sheet_.at(frame_ + frame_offset_));
 }
 
 int Player::GetPacDotsEaten() {
@@ -97,16 +99,14 @@ void Player::ExecuteInput(Input &input_) {
 		input_direction_ = MOVING_UP;
 	}
 	if (input_.WasKeyHeld(SDL_SCANCODE_SPACE)) {
-		std::cout << "Player pos: " << pos_x_ << ", " << pos_y_ << "\n";
+		std::cout << "Player pos: " << pos_.x_ << ", " << pos_.y_ << "\n";
 		//std::cout << "Points: " << pac_dots_eaten_ << " " << pac_pellets_eaten_ << "\n";
 	}
 }
 
 void Player::Move(Level &level) {
-	//std::cout << "Player pos: " << pos_x_ << ", " << pos_y_ << "\n";
-
-	p_pos_x_ = pos_x_;
-	p_pos_y_ = pos_y_;
+	p_pos_.x_ = pos_.x_;
+	p_pos_.y_ = pos_.y_;
 
 	// If appropriate, teleport the player
 	if (!TeleportPlayer(level)) {
@@ -180,12 +180,12 @@ void Player::Move(Level &level) {
 		}
 	}
 
-	if (p_pos_x_ == pos_x_ && p_pos_y_ == pos_y_) {
+	if (p_pos_.x_ == pos_.x_ && p_pos_.y_ == pos_.y_) {
 		is_moving_ = false;
 	}
 	else {
 		is_moving_ = true;
-		level.SetCharacterTilePos(PAC_MAN_CHAR_KEY, pos_x_, pos_y_);
+		level.SetCharacterGridTile(PAC_MAN_CHAR_KEY, pos_.x_, pos_.y_);
 	}
 }
 
@@ -212,14 +212,12 @@ bool Player::TeleportPlayer(Level & level) {
 	bool teleported = false;
 
 	if (CheckCollision(level.GetTeleportTiles().at(LEFT_TELE_ENTRY)->GetCBox())) {
-		pos_x_ = level.GetTeleportTiles().at(LEFT_TELE_EXIT)->GetPosX();
-		pos_y_ = level.GetTeleportTiles().at(LEFT_TELE_EXIT)->GetPosY();
+		pos_ = level.GetTeleportTiles().at(LEFT_TELE_EXIT)->GetPos();
 		curr_direction_ = MOVING_LEFT;
 		teleported = true;
 	}
 	if (CheckCollision(level.GetTeleportTiles().at(RIGHT_TELE_ENTRY)->GetCBox())) {
-		pos_x_ = level.GetTeleportTiles().at(RIGHT_TELE_EXIT)->GetPosX();
-		pos_y_ = level.GetTeleportTiles().at(RIGHT_TELE_EXIT)->GetPosY();
+		pos_ = level.GetTeleportTiles().at(RIGHT_TELE_EXIT)->GetPos();
 		curr_direction_ = MOVING_RIGHT;
 		teleported = true;
 	}
@@ -231,14 +229,14 @@ bool Player::CanMoveRight(Level & level) {
 	// Success flag
 	bool can_move_right = true;
 
-	pos_x_ += VEL_;
+	pos_.x_ += VEL_;
 	UpdateCBox();
 	SDL_Rect collided_tile_cbox;
 	if (GetCollidedTileCBox(level.GetCollisionTiles(), collided_tile_cbox)) {
 		can_move_right = false;
 	}
 
-	pos_x_ -= VEL_;
+	pos_.x_ -= VEL_;
 	UpdateCBox();
 
 	return can_move_right;
@@ -248,14 +246,14 @@ bool Player::CanMoveDown(Level & level) {
 	// Success flag
 	bool can_move_down = true;
 
-	pos_y_ += VEL_;
+	pos_.y_ += VEL_;
 	UpdateCBox();
 	SDL_Rect collided_tile_cbox;
 	if (GetCollidedTileCBox(level.GetCollisionTiles(), collided_tile_cbox)) {
 		can_move_down = false;
 	}
 
-	pos_y_ -= VEL_;
+	pos_.y_ -= VEL_;
 	UpdateCBox();
 
 	return can_move_down;
@@ -265,14 +263,14 @@ bool Player::CanMoveLeft(Level & level) {
 	// Success flag
 	bool can_move_left = true;
 
-	pos_x_ -= VEL_;
+	pos_.x_ -= VEL_;
 	UpdateCBox();
 	SDL_Rect collided_tile_cbox;
 	if (GetCollidedTileCBox(level.GetCollisionTiles(), collided_tile_cbox)) {
 		can_move_left = false;
 	}
 
-	pos_x_ += VEL_;
+	pos_.x_ += VEL_;
 	UpdateCBox();
 
 	return can_move_left;
@@ -282,14 +280,14 @@ bool Player::CanMoveUp(Level & level) {
 	// Success flag
 	bool can_move_up = true;
 
-	pos_y_ -= VEL_;
+	pos_.y_ -= VEL_;
 	UpdateCBox();
 	SDL_Rect collided_tile_cbox;
 	if (GetCollidedTileCBox(level.GetCollisionTiles(), collided_tile_cbox)) {
 		can_move_up = false;
 	}
 
-	pos_y_ += VEL_;
+	pos_.y_ += VEL_;
 	UpdateCBox();
 
 	return can_move_up;

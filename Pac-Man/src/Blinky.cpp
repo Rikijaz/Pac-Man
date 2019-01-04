@@ -10,16 +10,15 @@ Blinky::Blinky(Data & data, int pos_x, int pos_y) : Ghost(BLINKY_VEL_) {
 		std::cout << "Failed to retrieve textures from my_data_!\n";
 	}
 	else {
+		// Initialize the offsets
+		pos_.x_ = pos_x;
+		pos_.y_ = pos_y;
+
 		// Initialize the collision box dimensions
 		cbox_.w = sprite_sheet_.at(0)->GetWidth();
 		cbox_.h = sprite_sheet_.at(0)->GetHeight();
-		cbox_.x = pos_x_;
-		cbox_.y = pos_y_;
-
-		// Initialize the offsets
-		pos_x_ = pos_x;
-		pos_y_ = pos_y;
-
+		cbox_.x = pos_.x_;
+		cbox_.y = pos_.y_;
 		// Initialize the velocity
 		vel_x_ = 0;
 		vel_y_ = 0;
@@ -49,8 +48,6 @@ void Blinky::Update(Level & level, int elapsed_time) {
 	GetPlayerPos(level);
 }
 
-void Blinky::CalculatePath() {
-}
 
 void Blinky::Render(Graphics & graphics) {
 }

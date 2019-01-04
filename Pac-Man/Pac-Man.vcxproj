@@ -119,6 +119,7 @@
     <Image Include="assets\sprites\Pac-Man_6.png" />
     <Image Include="assets\sprites\Pac-Man_7.png" />
     <Image Include="assets\sprites\Pac-Man_8.png" />
+    <Image Include="assets\sprites\pacman_tile_sheet_0.png" />
     <Image Include="assets\sprites\pacman_tile_sheet_1.png" />
     <Image Include="assets\sprites\pacman_tile_sheet_10.png" />
     <Image Include="assets\sprites\pacman_tile_sheet_11.png" />

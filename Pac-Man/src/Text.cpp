@@ -4,8 +4,8 @@
 
 Text::Text(Texture* texture, int pos_x, int pos_y, char character) {
 	// Initialize the offsets
-	pos_x_ = pos_x;
-	pos_y_ = pos_y;
+	pos_.x_ = pos_x;
+	pos_.y_ = pos_y;
 
 	// Initialize character
 	char_ = character;
@@ -16,7 +16,7 @@ Text::Text(Texture* texture, int pos_x, int pos_y, char character) {
 
 void Text::Render(Graphics & graphics) {
 	// Show the tile
-	graphics.Render(pos_x_, pos_y_, texture_);
+	graphics.Render(pos_, texture_);
 }
 
 void Text::ChangeChar(Texture * texture, char character) {

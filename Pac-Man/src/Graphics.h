@@ -4,6 +4,7 @@
 #define GRAPHICS_H
 
 #include "Texture.h"
+#include "Globals.h"
 
 #include "SDL.h"
 #include <string>
@@ -23,7 +24,7 @@ class Graphics {
 		void Clear();
 
 		// Renders texture at given point
-		void Render(int x, int y, Texture* texture, SDL_Rect* clip = NULL);
+		void Render(Pos pos, Texture* texture, SDL_Rect* clip = NULL);
 
 		// Update screen
 		void Update();
