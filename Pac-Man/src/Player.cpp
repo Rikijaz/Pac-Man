@@ -185,6 +185,7 @@ void Player::Move(Level &level) {
 	}
 	else {
 		is_moving_ = true;
+		level.SetCharacterTilePos(PAC_MAN_CHAR_KEY, pos_x_, pos_y_);
 	}
 }
 
@@ -199,34 +200,6 @@ void Player::EatDot(Level & level) {
 		if (CheckCollision(level.GetPacPellets().at(i)->GetCBox())) {
 			level.RemovePacPellet(i);
 			pac_pellets_eaten_++;
-		}
-	}
-}
-
-void Player::SetAnimation(int elapsed_time) {
-	if (is_facing_right_) {
-		frame_offset_ = 0;
-	}
-	if (is_facing_down_) {
-		frame_offset_ = 2;
-	}
-	if (is_facing_left_) {
-		frame_offset_ = 4;
-	}
-	if (is_facing_up_) {
-		frame_offset_ = 6;
-	}
-
-	// Regulate animation frame rate
-	time_elapsed_ += elapsed_time;
-	if (time_elapsed_ > time_to_update_) {
-		time_elapsed_ -= time_to_update_;
-		// If the player is not moving or end of animation sequence
-		if (!is_moving_ || frame_ >= ANIMATION_FRAMES_ - 1) {
-			frame_ = 0;
-		}
-		else {
-			frame_++;
 		}
 	}
 }

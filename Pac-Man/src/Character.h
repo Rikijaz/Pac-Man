@@ -17,6 +17,9 @@ public:
 	Character(int vel);
 
 protected:
+	// Moves the character
+	virtual void Move(Level &level) = 0;
+
 	// Moves the character to the direction set
 	void MoveRight(Level &level);
 	void MoveDown(Level &level);
@@ -25,6 +28,9 @@ protected:
 
 	// If tile collision, get collided tile's collision box
 	bool GetCollidedTileCBox(std::vector<Tile*> collision_tiles, SDL_Rect &cbox);
+
+	// Cycle through the spritesheet appropriately
+	void SetAnimation(int elapsed_time);
 
 	// Update collision box
 	void UpdateCBox();
@@ -49,6 +55,9 @@ protected:
 	bool is_facing_down_;
 	bool is_facing_left_;
 	bool is_facing_up_;
+
+	// Number of animation frames
+	static const int ANIMATION_FRAMES_ = 2;
 
 	static const int PAC_MAN_CHAR_KEY = 0;
 	static const int BLINKY_MAN_CHAR_KEY = 1;

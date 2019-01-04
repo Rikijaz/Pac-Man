@@ -13,7 +13,7 @@
 
 class Blinky : public Ghost {
 public: 
-	Blinky() {};
+	Blinky();
 
 	// Initializes the variables
 	Blinky(Data &data, int pos_x, int pos_y);
@@ -24,7 +24,13 @@ public:
 	// Updates the player
 	virtual void Update(Level &level, int elapsed_time);
 
+	// Calculate the path to the player
+	virtual void CalculatePath();
+
 	// Shows the player on the screen
 	virtual void Render(Graphics &graphics);
+
+private:
+	static const int BLINKY_VEL_ = 3;
 };
 #endif // !BLINKY_H

@@ -12,12 +12,17 @@
 #include "Level.h"
 
 class Ghost : public Character {
+public:
+	Ghost(int vel);
+
 protected:
 	// Updates the ghost
 	virtual void Update(Level &level, int elapsed_time) = 0;
 
 	// Calculate the path to the player
+	virtual void CalculatePath() = 0;
 
+	void GetPlayerPos(Level &level);
 
 	// The X and Y offsets of the player
 	int player_pos_x_;

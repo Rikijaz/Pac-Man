@@ -1,8 +1,10 @@
-// Player.cpp : Defines the Player class's functions
+// Blinky.cpp : Defines the Blinky class's functions
 
 #include "Blinky.h"
 
-Blinky::Blinky(Data & data, int pos_x, int pos_y) {
+Blinky::Blinky() : Ghost(BLINKY_VEL_){}
+
+Blinky::Blinky(Data & data, int pos_x, int pos_y) : Ghost(BLINKY_VEL_) {
 	// Get player spritesheet
 	if (!data.GetSprites("Blinky", sprite_sheet_)) {
 		std::cout << "Failed to retrieve textures from my_data_!\n";
@@ -44,6 +46,10 @@ Blinky::~Blinky() {
 }
 
 void Blinky::Update(Level & level, int elapsed_time) {
+	GetPlayerPos(level);
+}
+
+void Blinky::CalculatePath() {
 }
 
 void Blinky::Render(Graphics & graphics) {

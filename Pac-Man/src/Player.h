@@ -38,13 +38,10 @@ private:
 	void ExecuteInput(Input &input_);
 
 	// If the player can move towards the desired direction, move the player
-	void Move(Level &level);
+	virtual void Move(Level &level);
 
 	// If the player collides with a dot, eat it
 	void EatDot(Level &level);
-
-	// Cycle through the spritesheet appropriately
-	void SetAnimation(int elapsed_time);
 
 	// If the player collides with a teleport tile, teleport the player
 	bool TeleportPlayer(Level &level);
@@ -58,13 +55,8 @@ private:
 	// Handles user input
 	Input input_;
 
-	std::vector<Texture*> curr_animations;
-
 	// Player velocity
 	static const int PLAYER_VEL_ = 4;
-
-	// Number of animation frames
-	static const int ANIMATION_FRAMES_ = 2;
 
 	// The input direction
 	int input_direction_;

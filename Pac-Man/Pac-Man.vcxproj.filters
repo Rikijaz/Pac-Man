@@ -60,6 +60,9 @@
     <ClCompile Include="src\Blinky.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Ghost.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Character.h">
@@ -391,6 +394,18 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="assets\sprites\blinky_2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\sprites\blinky_5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\sprites\blinky_6.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\sprites\blinky_7.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\sprites\blinky_8.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
