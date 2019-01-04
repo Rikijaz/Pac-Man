@@ -5,6 +5,10 @@
 #include <fstream>
 
 Level::~Level() {
+	for (unsigned i = 0; i < teleport_tiles_.size(); ++i) {
+		delete teleport_tiles_.at(i);
+		teleport_tiles_.at(i) = nullptr;
+	}
 	for (unsigned i = 0; i < collision_tiles_.size(); ++i) {
 		delete collision_tiles_.at(i);
 		collision_tiles_.at(i) = nullptr;
@@ -24,11 +28,11 @@ Level::~Level() {
 Level::Level(Data & data) {
 	if (data.GetSprites(TILE_KEY, sprite_list_)) {
 		if (ReadMapAndInstantiateTiles(data)) {
-			std::cout << "Level has successfully loaded.\n";
+			std::cout << "Level has successfully loaded!\n";
 		}
 	}
 	else {
-		std::cout << "Level has failed to load.\n";
+		std::cout << "Level has failed to load!\n";
 	}
 }
 
@@ -36,12 +40,18 @@ void Level::Render(Graphics & graphics) {
 	for (unsigned i = 0; i < collision_tiles_.size(); ++i) {
 		collision_tiles_.at(i)->Render(graphics);
 	}
+
 	for (unsigned i = 0; i < pac_dots_.size(); ++i) {
 		pac_dots_.at(i)->Render(graphics);
 	}
+
 	for (unsigned i = 0; i < pac_pellets_.size(); ++i) {
 		pac_pellets_.at(i)->Render(graphics);
 	}
+}
+
+std::vector<Tile*> Level::GetTeleportTiles() {
+	return teleport_tiles_;
 }
 
 std::vector<Tile*> Level::GetCollisionTiles() {
@@ -112,6 +122,18 @@ bool Level::ReadMapAndInstantiateTiles(Data &data) {
 			else if (tile_type == TOTAL_PAC_PELLETS_) {
 				pac_pellets_.push_back(new Tile(sprite_list_.at(tile_type - 1), x, y, tile_type));
 			}
+			else if (tile_type == LEFT_TELEPORT_TILE_) {
+				// Left teleport entry
+				teleport_tiles_.push_back(new Tile(sprite_list_.at(tile_type - 1), x + L_TELE_ENTRY_POS_X_OFFSET_, y, tile_type));
+				// Right teleport exit
+				teleport_tiles_.push_back(new Tile(sprite_list_.at(tile_type - 1), x + R_TELE_EXIT_POS_X_OFFSET_, y, tile_type));
+			}
+			else if (tile_type == RIGHT_TELEPORT_TILE_) {
+				// Left teleport exit
+				teleport_tiles_.push_back(new Tile(sprite_list_.at(tile_type - 1), x + L_TELE_EXIT_POS_X_OFFSET_, y, tile_type));
+				// Right teleport entry
+				teleport_tiles_.push_back(new Tile(sprite_list_.at(tile_type - 1), x + R_TELE_ENTRY_POS_X_OFFSET_, y, tile_type));
+			}
 			else if (tile_type == 0) {
 
 			}
@@ -135,6 +157,7 @@ bool Level::ReadMapAndInstantiateTiles(Data &data) {
 				y += TILE_HEIGHT_;
 			}
 		}
+
 	}
 
 	// Close the file

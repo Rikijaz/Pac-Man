@@ -27,6 +27,11 @@ public:
 	// Shows the player on the screen
 	virtual void Render(Graphics &graphics);
 
+	// Returns pac_dots_eaten_
+	int GetPacDotsEaten();
+
+	// Returns pac_pellets_eaten_
+	int GetPacPelletsEaten();
 
 private:
 	// Execute input
@@ -43,6 +48,9 @@ private:
 
 	// Cycle through the spritesheet appropriately
 	void SetAnimation(int elapsed_time);
+
+	// If the player collides with a teleport tile, teleport the player
+	bool TeleportPlayer(Level &level);
 
 	// Moves the player to the direction set
 	void MoveRight(Level &level);

@@ -24,7 +24,6 @@ Player::Player(Data &data, int pos_x, int pos_y) {
 		cbox_.x = pos_x_;
 		cbox_.y = pos_y_;
 
-		std::cout << cbox_.w << cbox_.h;
 		// Initialize the offsets
 		pos_x_ = pos_x;
 		pos_y_ = pos_y;
@@ -54,7 +53,7 @@ Player::Player(Data &data, int pos_x, int pos_y) {
 		pac_dots_eaten_ = 0;
 		pac_pellets_eaten_ = 0;
 
-		std::cout << "Successfully loaded Player data!\n";
+		std::cout << "Player has loaded successfully!\n";
 	}
 }
 
@@ -73,6 +72,14 @@ void Player::Render(Graphics & graphics) {
 	graphics.Render(pos_x_ , pos_y_, sprite_sheet_.at(frame_ + frame_offset_));
 }
 
+int Player::GetPacDotsEaten() {
+	return pac_dots_eaten_;
+}
+
+int Player::GetPacPelletsEaten() {
+	return pac_pellets_eaten_;
+}
+
 void Player::ExecuteInput(Input &input_) {
 	if (input_.WasKeyHeld(SDL_SCANCODE_RIGHT)) {
 		input_direction_ = MOVING_RIGHT;
@@ -88,47 +95,47 @@ void Player::ExecuteInput(Input &input_) {
 	}
 	if (input_.WasKeyHeld(SDL_SCANCODE_SPACE)) {
 		std::cout << "Player pos: " << pos_x_ << ", " << pos_y_ << "\n";
+		//std::cout << "Points: " << pac_dots_eaten_ << " " << pac_pellets_eaten_ << "\n";
 	}
 }
 
 void Player::Move(Level &level) {
-	std::cout << "Player pos: " << pos_x_ << ", " << pos_y_ << "\n";
+	//std::cout << "Player pos: " << pos_x_ << ", " << pos_y_ << "\n";
 
 	p_pos_x_ = pos_x_;
 	p_pos_y_ = pos_y_;
 
-	switch (input_direction_) {
-		case MOVING_RIGHT: {
-			if (CanMoveRight(level)) {
-				std::cout << "Can't move right.\n";
+	// If appropriate, teleport the player
+	if (!TeleportPlayer(level)) {
+		switch (input_direction_) {
+			case MOVING_RIGHT: {
+				if (CanMoveRight(level)) {
+					curr_direction_ = input_direction_;
+				}
+				break;
+			}
+			case MOVING_DOWN: {
+				if (CanMoveDown(level)) {
+					curr_direction_ = input_direction_;
+				}
+				break;
+			}
+			case MOVING_LEFT: {
+				if (CanMoveLeft(level)) {
+					curr_direction_ = input_direction_;
+				}
+				break;
+			}
+			case MOVING_UP: {
+				if (CanMoveUp(level)) {
+					curr_direction_ = input_direction_;
+				}
+				break;
+			}
+			default: {
 				curr_direction_ = input_direction_;
+				break;
 			}
-			else {
-				std::cout << "Can move right.\n";
-			}
-			break;
-		}
-		case MOVING_DOWN: {
-			if (CanMoveDown(level)) {
-				curr_direction_ = input_direction_;
-			}
-			break;
-		}
-		case MOVING_LEFT: {
-			if (CanMoveLeft(level)) {
-				curr_direction_ = input_direction_;
-			}
-			break;
-		}
-		case MOVING_UP: {
-			if (CanMoveUp(level)) {
-				curr_direction_ = input_direction_;
-			}
-			break;
-		}
-		default: {
-			curr_direction_ = input_direction_;
-			break;
 		}
 	}
 
@@ -166,7 +173,6 @@ void Player::Move(Level &level) {
 			break;
 		}
 		default: {
-			std::cout << "Waiting for direction.\n";
 			break;
 		}
 	}
@@ -220,9 +226,31 @@ void Player::SetAnimation(int elapsed_time) {
 			frame_++;
 		}
 	}
-	std::cout << sprite_sheet_.size() << "\n";
-	std::cout << frame_offset_ << " " << frame_ << "\n";
 }
+
+bool Player::TeleportPlayer(Level & level) {
+	static const int LEFT_TELE_ENTRY = 0;
+	static const int LEFT_TELE_EXIT = 2;
+	static const int RIGHT_TELE_ENTRY = 3;
+	static const int RIGHT_TELE_EXIT = 1;
+	bool teleported = false;
+
+	if (CheckCollision(level.GetTeleportTiles().at(LEFT_TELE_ENTRY)->GetCBox())) {
+		pos_x_ = level.GetTeleportTiles().at(LEFT_TELE_EXIT)->GetPosX();
+		pos_y_ = level.GetTeleportTiles().at(LEFT_TELE_EXIT)->GetPosY();
+		curr_direction_ = MOVING_LEFT;
+		teleported = true;
+	}
+	if (CheckCollision(level.GetTeleportTiles().at(RIGHT_TELE_ENTRY)->GetCBox())) {
+		pos_x_ = level.GetTeleportTiles().at(RIGHT_TELE_EXIT)->GetPosX();
+		pos_y_ = level.GetTeleportTiles().at(RIGHT_TELE_EXIT)->GetPosY();
+		curr_direction_ = MOVING_RIGHT;
+		teleported = true;
+	}
+
+	return teleported;
+}
+
 
 void Player::MoveRight(Level &level) {
 	pos_x_ += PLAYER_VEL_;

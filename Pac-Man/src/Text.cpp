@@ -19,6 +19,11 @@ void Text::Render(Graphics & graphics) {
 	graphics.Render(pos_x_, pos_y_, texture_);
 }
 
+void Text::ChangeChar(Texture * texture, char character) {
+	texture_ = texture;
+	char_ = character;
+}
+
 char Text::GetChar() {
 	return char_;
 }

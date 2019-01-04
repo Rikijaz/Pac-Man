@@ -20,6 +20,9 @@ public:
 	// Shows the level
 	void Render(Graphics &graphics);
 
+	// Returns teleport_tiles_
+	std::vector<Tile*> GetTeleportTiles();
+	
 	// Returns collision_tiles_
 	std::vector<Tile*> GetCollisionTiles();
 
@@ -44,13 +47,23 @@ private:
 	static const int LEVEL_HEIGHT_ = 36;
 	static const int TILE_WIDTH_ = 32;
 	static const int TILE_HEIGHT_ = 32;
+
 	static const int TOTAL_COLLISION_TILES_ = 31;
-	static const int TOTAL_PAC_DOTS_ = 33;
 	static const int TOTAL_PAC_PELLETS_ = 32;
+	static const int TOTAL_PAC_DOTS_ = 33;
+	static const int LEFT_TELEPORT_TILE_ = 34;
+	static const int RIGHT_TELEPORT_TILE_ = 35;
+	
+	static const int L_TELE_ENTRY_POS_X_OFFSET_ = -64;
+	static const int L_TELE_EXIT_POS_X_OFFSET_ = 32;
+	static const int R_TELE_ENTRY_POS_X_OFFSET_ = 64;
+	static const int R_TELE_EXIT_POS_X_OFFSET_ = -32;
+	
 
 	// Read in the map and instantiate tiles
 	bool ReadMapAndInstantiateTiles(Data &data);
 
+	std::vector<Tile*> teleport_tiles_;
 	std::vector<Tile*> collision_tiles_;
 	std::vector<Tile*> pac_dots_;
 	std::vector<Tile*> pac_pellets_;

@@ -109,8 +109,12 @@
     <Text Include="assets\sprite_data.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="data\assets_data.txt" />
-    <Text Include="data\map.txt" />
+    <Text Include="data\assets_data.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="data\map.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\sprites\pacman_tile_sheet_1.png">
@@ -234,6 +238,138 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="assets\sprites\pacman_tile_sheet_33.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\sprites\pacman_tile_sheet_34.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\sprites\pacman_tile_sheet_35.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_6.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_7.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_8.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_9.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_10.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_11.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_12.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_13.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_14.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_15.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_16.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_17.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_18.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_19.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_42.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_41.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_40.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_39.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_38.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_37.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_35.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_33.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_29.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_25.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_20.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_22.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_21.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_23.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_24.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_26.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_27.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_28.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_30.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_31.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_32.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_34.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\fonts\pacman_font_36.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

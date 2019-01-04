@@ -15,6 +15,9 @@ public:
 	// Shows the tile
 	void Render(Graphics &graphics);
 
+	// Changes the text
+	void ChangeChar(Texture* texture, char character);
+
 	// Returns char_
 	char GetChar();
 

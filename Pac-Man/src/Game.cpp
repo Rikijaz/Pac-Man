@@ -12,10 +12,10 @@ const int MS_PER_UPDATE = 16;
 
 Game::Game() : 
 		data_ (graphics_), 
-		player_(data_, 416, 448),
+		player_(data_, 416, 832),
 		level_(data_),
 		hud_(data_) {
-	std::cout << "Game data loaded!\n";
+	std::cout << "Game has successfully loaded!\n";
 	GameLoop();
 }
 
@@ -74,6 +74,7 @@ bool Game::ProcessInput() {
 
 void Game::Update(int elapsed_time) {
 	player_.Update(input_, level_, elapsed_time);
+	hud_.Update(player_.GetPacDotsEaten(), player_.GetPacPelletsEaten());
 }
 
 void Game::Render(int elapsed_time) {

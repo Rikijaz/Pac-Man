@@ -30,7 +30,6 @@ bool Data::GetSprites(std::string key, std::vector<Texture*> &sprite_list) {
 	// Find the corresponding sprite sheet
 	int sprite_sheet_index;
 	for (unsigned i = 0; i < sprite_directory_.size(); ++i) {
-		std::cout << sprite_directory_.at(i).key_ << "\n";
 		if (sprite_directory_.at(i).key_ == key) {
 			
 			valid_key = true;
