@@ -50,19 +50,6 @@ void Level::Render(Graphics & graphics) {
 	}
 }
 
-void Level::SetCharacterTilePos(int char_key, int tile_pos_x, int tile_pos_y) {
-	character_tile_pos[char_key].tile_pos_x_ = tile_pos_x;
-	character_tile_pos[char_key].tile_pos_x_ = tile_pos_y;;
-}
-
-int Level::GetCharacterTilePosX(int char_key) {
-	return character_tile_pos[char_key].tile_pos_x_;
-}
-
-int Level::GetCharacterTilePosY(int char_key) {
-	return character_tile_pos[char_key].tile_pos_y_;
-}
-
 std::vector<Tile*> Level::GetTeleportTiles() {
 	return teleport_tiles_;
 }
