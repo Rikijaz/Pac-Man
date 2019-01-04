@@ -7,6 +7,10 @@
 #include "Data.h"
 #include "Tile.h"
 
+struct TilePos {
+	int tile_pos_x_;
+	int tile_pos_y_;
+};
 
 class Level {
 public:
@@ -20,9 +24,15 @@ public:
 	// Shows the level
 	void Render(Graphics &graphics);
 
+	void SetCharacterTilePos(int char_key, int tile_pos_x, int tile_pos_y);
+
+	int GetCharacterTilePosX(int char_key);
+
+	int GetCharacterTilePosY(int char_key);
+
 	// Returns teleport_tiles_
 	std::vector<Tile*> GetTeleportTiles();
-	
+
 	// Returns collision_tiles_
 	std::vector<Tile*> GetCollisionTiles();
 
@@ -39,6 +49,8 @@ public:
 	void RemovePacPellet(int index);
 
 private:
+	static const int MAX_CHARACTERS = 5;
+
 	const std::string MAP_FILE_PATH_ = "data/map.txt";
 	const std::string TILE_KEY = "Tiles";
 
@@ -53,15 +65,17 @@ private:
 	static const int TOTAL_PAC_DOTS_ = 33;
 	static const int LEFT_TELEPORT_TILE_ = 34;
 	static const int RIGHT_TELEPORT_TILE_ = 35;
-	
+
 	static const int L_TELE_ENTRY_POS_X_OFFSET_ = -64;
 	static const int L_TELE_EXIT_POS_X_OFFSET_ = 32;
 	static const int R_TELE_ENTRY_POS_X_OFFSET_ = 64;
 	static const int R_TELE_EXIT_POS_X_OFFSET_ = -32;
-	
+
 
 	// Read in the map and instantiate tiles
 	bool ReadMapAndInstantiateTiles(Data &data);
+
+	TilePos character_tile_pos[MAX_CHARACTERS];
 
 	std::vector<Tile*> teleport_tiles_;
 	std::vector<Tile*> collision_tiles_;
