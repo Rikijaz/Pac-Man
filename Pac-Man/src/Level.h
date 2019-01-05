@@ -13,6 +13,8 @@ struct GridTile {
 	int x_ = -1;
 	int y_ = -1;
 	int type_ = -1;
+	int distance_ = INT_MAX;
+	bool visited_ = false;
 	std::vector<Pos> neighbors_;
 };
 
@@ -29,6 +31,10 @@ public:
 	void Render(Graphics &graphics);
 
 	void SetCharacterGridTile(int char_key, int tile_pos_x, int tile_pos_y);
+
+	void ResetGridTilesDistance();
+
+	GridTile GetCharacterGridTile(int char_key);
 
 	int GetCharacterGridTileX(int char_key);
 

@@ -1,7 +1,7 @@
-// Blinky.h : Declares the Blinky class's functions
+// Pinky.h : Declares the Pinky class's functions
 
-#ifndef BLINKY_H
-#define BLINKY_H
+#ifndef PINKY_H
+#define PINKY_H
 
 #include <SDL.h>
 
@@ -11,15 +11,15 @@
 #include "Input.h"
 #include "Level.h"
 
-class Blinky : public Ghost {
-public: 
-	Blinky();
+class Pinky : public Ghost {
+public:
+	Pinky();
 
 	// Initializes the variables
-	Blinky(Data &data, int pos_x, int pos_y);
+	Pinky(Data &data, int pos_x, int pos_y);
 
 	// Deallocate memory
-	~Blinky();
+	~Pinky();
 
 	// Updates the player
 	virtual void Update(Level &level, int elapsed_time);
@@ -29,7 +29,7 @@ public:
 
 
 private:
-	static const int BLINKY_VEL_ = 2;
+	static const int PINKY_VEL_ = 2;
 };
 
-#endif // !BLINKY_H
+#endif // !PINKY_H

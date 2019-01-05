@@ -24,9 +24,6 @@ public:
 	// Updates the player
 	void Update(Input &input, Level &level, int elapsed_time);
 
-	// Shows the player on the screen
-	virtual void Render(Graphics &graphics);
-
 	// Returns pac_dots_eaten_
 	int GetPacDotsEaten();
 
@@ -37,35 +34,17 @@ private:
 	// Execute input
 	void ExecuteInput(Input &input_);
 
-	// If the player can move towards the desired direction, move the player
-	virtual void Move(Level &level);
-
 	// If the player collides with a dot, eat it
 	void EatDot(Level &level);
 
-	// If the player collides with a teleport tile, teleport the player
-	bool TeleportPlayer(Level &level);
-
-	// Check if the player can move this direction
-	bool CanMoveRight(Level &level);
-	bool CanMoveDown(Level &level);
-	bool CanMoveLeft(Level &level);
-	bool CanMoveUp(Level &level);
+	// Update position on grid_map_
+	virtual void UpdateMapPos(Level &level);
 
 	// Handles user input
 	Input input_;
 
 	// Player velocity
 	static const int PLAYER_VEL_ = 4;
-
-	// The input direction
-	int input_direction_;
-
-	// The direction the player is moving
-	int curr_direction_;
-
-	// The direction the player will move when possible
-	int next_direction_;
 
 	// Dots eaten counter
 	int pac_dots_eaten_;

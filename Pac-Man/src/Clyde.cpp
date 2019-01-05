@@ -1,12 +1,12 @@
-// Blinky.cpp : Defines the Blinky class's functions
+// Clyde.cpp : Defines the Clyde class's functions
 
-#include "Blinky.h"
+#include "Clyde.h"
 
-Blinky::Blinky() : Ghost(BLINKY_VEL_){}
+Clyde::Clyde() : Ghost(CLYDE_VEL_) {}
 
-Blinky::Blinky(Data & data, int pos_x, int pos_y) : Ghost(BLINKY_VEL_) {
+Clyde::Clyde(Data & data, int pos_x, int pos_y) : Ghost(CLYDE_VEL_) {
 	// Get player spritesheet
-	if (!data.GetSprites("Blinky", sprite_sheet_)) {
+	if (!data.GetSprites("Clyde", sprite_sheet_)) {
 		std::cout << "Failed to retrieve textures from my_data_!\n";
 	}
 	else {
@@ -41,10 +41,10 @@ Blinky::Blinky(Data & data, int pos_x, int pos_y) : Ghost(BLINKY_VEL_) {
 	}
 }
 
-Blinky::~Blinky() {
+Clyde::~Clyde() {
 }
 
-void Blinky::Update(Level & level, int elapsed_time) {
+void Clyde::Update(Level & level, int elapsed_time) {
 	GetPlayerPos(level);
 	Wander(level);
 	//Drift(level);
@@ -53,6 +53,6 @@ void Blinky::Update(Level & level, int elapsed_time) {
 	SetAnimation(elapsed_time);
 }
 
-void Blinky::UpdateMapPos(Level & level) {
-	level.SetCharacterGridTile(BLINKY_CHAR_KEY, pos_.x_, pos_.y_);
+void Clyde::UpdateMapPos(Level & level) {
+	level.SetCharacterGridTile(CLYDE_CHAR_KEY, pos_.x_, pos_.y_);
 }

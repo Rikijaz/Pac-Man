@@ -1,7 +1,7 @@
-// Blinky.h : Declares the Blinky class's functions
+// Clyde.h : Declares the Clyde class's functions
 
-#ifndef BLINKY_H
-#define BLINKY_H
+#ifndef CLYDE_H
+#define CLYDE_H
 
 #include <SDL.h>
 
@@ -11,15 +11,15 @@
 #include "Input.h"
 #include "Level.h"
 
-class Blinky : public Ghost {
-public: 
-	Blinky();
+class Clyde : public Ghost {
+public:
+	Clyde();
 
 	// Initializes the variables
-	Blinky(Data &data, int pos_x, int pos_y);
+	Clyde(Data &data, int pos_x, int pos_y);
 
 	// Deallocate memory
-	~Blinky();
+	~Clyde();
 
 	// Updates the player
 	virtual void Update(Level &level, int elapsed_time);
@@ -29,7 +29,7 @@ public:
 
 
 private:
-	static const int BLINKY_VEL_ = 2;
+	static const int CLYDE_VEL_ = 2;
 };
 
-#endif // !BLINKY_H
+#endif // !CLYDE_H

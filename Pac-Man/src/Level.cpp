@@ -59,7 +59,19 @@ void Level::Render(Graphics & graphics) {
 
 void Level::SetCharacterGridTile(int char_key, int tile_pos_x, int tile_pos_y) {
 	character_tile_pos[char_key].x_ = tile_pos_x;
-	character_tile_pos[char_key].x_ = tile_pos_y;
+	character_tile_pos[char_key].y_ = tile_pos_y;
+}
+
+void Level::ResetGridTilesDistance() {
+	for (unsigned y = 0; y < LEVEL_HEIGHT_ - 5; ++y) {
+		for (unsigned x = 0; x < LEVEL_WIDTH_; ++x) {
+			grid_map_[x][y].distance_ = INT_MAX;
+		}	
+	}
+}
+
+GridTile Level::GetCharacterGridTile(int char_key) {
+	return character_tile_pos[char_key];
 }
 
 int Level::GetCharacterGridTileX(int char_key) {
@@ -154,16 +166,24 @@ bool Level::ReadMapAndInstantiateTiles(Data &data) {
 				pac_pellets_.push_back(new Tile(sprite_list_.at(tile_type), x, y, tile_type));
 			}
 			else if (tile_type == LEFT_TELEPORT_TILE_) {
-				// Left teleport entry
+				// Left teleport entry : 0
 				teleport_tiles_.push_back(new Tile(sprite_list_.at(tile_type), x + L_TELE_ENTRY_POS_X_OFFSET_, y, tile_type));
-				// Right teleport exit
+				// Left teleport northern entry : 1
+				teleport_tiles_.push_back(new Tile(sprite_list_.at(tile_type), x + L_TELE_ENTRY_POS_X_OFFSET_ + 32, y - 32, tile_type));
+				// Left teleport southern entry : 2
+				teleport_tiles_.push_back(new Tile(sprite_list_.at(tile_type), x + L_TELE_ENTRY_POS_X_OFFSET_ + 32, y + 32, tile_type));
+				// Right teleport exit : 3
 				teleport_tiles_.push_back(new Tile(sprite_list_.at(tile_type), x + R_TELE_EXIT_POS_X_OFFSET_, y, tile_type));
 			}
 			else if (tile_type == RIGHT_TELEPORT_TILE_) {
-				// Left teleport exit
+				// Left teleport exit : 4
 				teleport_tiles_.push_back(new Tile(sprite_list_.at(tile_type), x + L_TELE_EXIT_POS_X_OFFSET_, y, tile_type));
-				// Right teleport entry
+				// Right teleport entry : 5
 				teleport_tiles_.push_back(new Tile(sprite_list_.at(tile_type), x + R_TELE_ENTRY_POS_X_OFFSET_, y, tile_type));
+				// Right teleport northern entry : 6
+				teleport_tiles_.push_back(new Tile(sprite_list_.at(tile_type), x + R_TELE_ENTRY_POS_X_OFFSET_ - 32, y - 32, tile_type));
+				// Right teleport southern entry : 7
+				teleport_tiles_.push_back(new Tile(sprite_list_.at(tile_type), x + R_TELE_ENTRY_POS_X_OFFSET_ - 32, y + 32, tile_type));
 			}
 			// If we don't recognize the tile type
 			else {

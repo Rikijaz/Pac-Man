@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Clyde.cpp" />
+    <ClCompile Include="src\Inky.cpp" />
+    <ClCompile Include="src\Pinky.cpp" />
     <ClCompile Include="src\Blinky.cpp" />
     <ClCompile Include="src\Font.cpp" />
     <ClCompile Include="src\Ghost.cpp" />
@@ -37,6 +40,9 @@
     <ClCompile Include="src\Text.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Clyde.h" />
+    <ClInclude Include="src\Inky.h" />
+    <ClInclude Include="src\Pinky.h" />
     <ClInclude Include="src\Blinky.h" />
     <ClInclude Include="src\Font.h" />
     <ClInclude Include="src\Ghost.h" />

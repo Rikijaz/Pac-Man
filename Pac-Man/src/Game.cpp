@@ -13,6 +13,10 @@ const int MS_PER_UPDATE = 16;
 Game::Game() : 
 		data_ (graphics_), 
 		player_(data_, 416, 832),
+		blinky_(data_, 352, 512),
+		inky_(data_, 384, 512),
+		pinky_(data_, 416, 512),
+		clyde_(data_, 384, 544),
 		level_(data_),
 		hud_(data_) {
 	std::cout << "Game has successfully loaded!\n";
@@ -74,6 +78,10 @@ bool Game::ProcessInput() {
 
 void Game::Update(int elapsed_time) {
 	player_.Update(input_, level_, elapsed_time);
+	blinky_.Update(level_, elapsed_time);
+	pinky_.Update(level_, elapsed_time);
+	inky_.Update(level_, elapsed_time);
+	clyde_.Update(level_, elapsed_time);
 	hud_.Update(player_.GetPacDotsEaten(), player_.GetPacPelletsEaten());
 }
 
@@ -85,9 +93,11 @@ void Game::Render(int elapsed_time) {
 	// Render screen
 	level_.Render(graphics_);
 	player_.Render(graphics_);
+	blinky_.Render(graphics_);
+	pinky_.Render(graphics_);
+	inky_.Render(graphics_);
+	clyde_.Render(graphics_);
 	hud_.Render(graphics_);
-	
-
 
 	//Update screen
 	graphics_.Update();

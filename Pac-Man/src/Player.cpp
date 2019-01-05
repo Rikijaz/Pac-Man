@@ -5,13 +5,6 @@
 #include <iostream>
 #include <cmath>
 
-enum {
-	MOVING_RIGHT,
-	MOVING_DOWN,
-	MOVING_LEFT,
-	MOVING_UP,
-};
-
 Player::Player() : Character(PLAYER_VEL_) {
 }
 
@@ -72,11 +65,6 @@ void Player::Update(Input &input, Level &level, int elapsed_time) {
 	SetAnimation(elapsed_time);
 }
 
-void Player::Render(Graphics & graphics) {
-	// Show the player
-	graphics.Render(pos_, sprite_sheet_.at(frame_ + frame_offset_));
-}
-
 int Player::GetPacDotsEaten() {
 	return pac_dots_eaten_;
 }
@@ -104,91 +92,6 @@ void Player::ExecuteInput(Input &input_) {
 	}
 }
 
-void Player::Move(Level &level) {
-	p_pos_.x_ = pos_.x_;
-	p_pos_.y_ = pos_.y_;
-
-	// If appropriate, teleport the player
-	if (!TeleportPlayer(level)) {
-		switch (input_direction_) {
-			case MOVING_RIGHT: {
-				if (CanMoveRight(level)) {
-					curr_direction_ = input_direction_;
-				}
-				break;
-			}
-			case MOVING_DOWN: {
-				if (CanMoveDown(level)) {
-					curr_direction_ = input_direction_;
-				}
-				break;
-			}
-			case MOVING_LEFT: {
-				if (CanMoveLeft(level)) {
-					curr_direction_ = input_direction_;
-				}
-				break;
-			}
-			case MOVING_UP: {
-				if (CanMoveUp(level)) {
-					curr_direction_ = input_direction_;
-				}
-				break;
-			}
-			default: {
-				curr_direction_ = input_direction_;
-				break;
-			}
-		}
-	}
-
-	switch (curr_direction_) {
-		case MOVING_RIGHT: {
-			is_facing_right_ = true;
-			is_facing_down_ = false;
-			is_facing_left_ = false;
-			is_facing_up_ = false;
-			MoveRight(level);
-			break;
-		}
-		case MOVING_DOWN: {
-			is_facing_right_ = false;
-			is_facing_down_ = true;
-			is_facing_left_ = false;
-			is_facing_up_ = false;
-			MoveDown(level);
-			break;
-		}
-		case MOVING_LEFT: {
-			is_facing_right_ = false;
-			is_facing_down_ = false;
-			is_facing_left_ = true;
-			is_facing_up_ = false;
-			MoveLeft(level);
-			break;
-		}
-		case MOVING_UP: {
-			is_facing_right_ = false;
-			is_facing_down_ = false;
-			is_facing_left_ = false;
-			is_facing_up_ = true;
-			MoveUp(level);
-			break;
-		}
-		default: {
-			break;
-		}
-	}
-
-	if (p_pos_.x_ == pos_.x_ && p_pos_.y_ == pos_.y_) {
-		is_moving_ = false;
-	}
-	else {
-		is_moving_ = true;
-		level.SetCharacterGridTile(PAC_MAN_CHAR_KEY, pos_.x_, pos_.y_);
-	}
-}
-
 void Player::EatDot(Level & level) {
 	for (unsigned i = 0; i < level.GetPacDots().size(); ++i) {
 		if (CheckCollision(level.GetPacDots().at(i)->GetCBox())) {
@@ -204,91 +107,7 @@ void Player::EatDot(Level & level) {
 	}
 }
 
-bool Player::TeleportPlayer(Level & level) {
-	static const int LEFT_TELE_ENTRY = 0;
-	static const int LEFT_TELE_EXIT = 2;
-	static const int RIGHT_TELE_ENTRY = 3;
-	static const int RIGHT_TELE_EXIT = 1;
-	bool teleported = false;
-
-	if (CheckCollision(level.GetTeleportTiles().at(LEFT_TELE_ENTRY)->GetCBox())) {
-		pos_ = level.GetTeleportTiles().at(LEFT_TELE_EXIT)->GetPos();
-		curr_direction_ = MOVING_LEFT;
-		teleported = true;
-	}
-	if (CheckCollision(level.GetTeleportTiles().at(RIGHT_TELE_ENTRY)->GetCBox())) {
-		pos_ = level.GetTeleportTiles().at(RIGHT_TELE_EXIT)->GetPos();
-		curr_direction_ = MOVING_RIGHT;
-		teleported = true;
-	}
-
-	return teleported;
+void Player::UpdateMapPos(Level & level) {
+	level.SetCharacterGridTile(PAC_MAN_CHAR_KEY, pos_.x_, pos_.y_);
 }
 
-bool Player::CanMoveRight(Level & level) {
-	// Success flag
-	bool can_move_right = true;
-
-	pos_.x_ += VEL_;
-	UpdateCBox();
-	SDL_Rect collided_tile_cbox;
-	if (GetCollidedTileCBox(level.GetCollisionTiles(), collided_tile_cbox)) {
-		can_move_right = false;
-	}
-
-	pos_.x_ -= VEL_;
-	UpdateCBox();
-
-	return can_move_right;
-}
-
-bool Player::CanMoveDown(Level & level) {
-	// Success flag
-	bool can_move_down = true;
-
-	pos_.y_ += VEL_;
-	UpdateCBox();
-	SDL_Rect collided_tile_cbox;
-	if (GetCollidedTileCBox(level.GetCollisionTiles(), collided_tile_cbox)) {
-		can_move_down = false;
-	}
-
-	pos_.y_ -= VEL_;
-	UpdateCBox();
-
-	return can_move_down;
-}
-
-bool Player::CanMoveLeft(Level & level) {
-	// Success flag
-	bool can_move_left = true;
-
-	pos_.x_ -= VEL_;
-	UpdateCBox();
-	SDL_Rect collided_tile_cbox;
-	if (GetCollidedTileCBox(level.GetCollisionTiles(), collided_tile_cbox)) {
-		can_move_left = false;
-	}
-
-	pos_.x_ += VEL_;
-	UpdateCBox();
-
-	return can_move_left;
-}
-
-bool Player::CanMoveUp(Level & level) {
-	// Success flag
-	bool can_move_up = true;
-
-	pos_.y_ -= VEL_;
-	UpdateCBox();
-	SDL_Rect collided_tile_cbox;
-	if (GetCollidedTileCBox(level.GetCollisionTiles(), collided_tile_cbox)) {
-		can_move_up = false;
-	}
-
-	pos_.y_ += VEL_;
-	UpdateCBox();
-
-	return can_move_up;
-}

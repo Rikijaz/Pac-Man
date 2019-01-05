@@ -5,10 +5,15 @@
 
 #include "Graphics.h"
 #include "Player.h"
+#include "Blinky.h"
+#include "Inky.h"
+#include "Pinky.h"
+#include "Clyde.h"
 #include "Data.h"
 #include "Input.h"
 #include "Level.h"
 #include "Hud.h"
+
 
 #include <SDL.h>
 
@@ -44,6 +49,18 @@ class Game {
 
 		// The player that the user will control
 		Player player_;
+
+		// Blinky, the AI ghost
+		Blinky blinky_;
+
+		// Blinky, the AI ghost
+		Pinky pinky_;
+
+		// Blinky, the AI ghost
+		Inky inky_;
+
+		// Blinky, the AI ghost
+		Clyde clyde_;
 
 		// The map the user will play in
 		Level level_;
