@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\GridTile.cpp" />
     <ClCompile Include="src\Clyde.cpp" />
     <ClCompile Include="src\Inky.cpp" />
     <ClCompile Include="src\Pinky.cpp" />
@@ -40,6 +41,8 @@
     <ClCompile Include="src\Text.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Pos.h" />
+    <ClInclude Include="src\GridTile.h" />
     <ClInclude Include="src\Clyde.h" />
     <ClInclude Include="src\Inky.h" />
     <ClInclude Include="src\Pinky.h" />

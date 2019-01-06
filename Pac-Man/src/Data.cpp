@@ -84,7 +84,7 @@ bool Data::LoadTextures(Graphics &graphics) {
 
 				// Load in textures from filenames here
 				std::vector<Texture*> sprite_list;
-				for (unsigned i = 0; i < total_files && loaded_textures; ++i) {
+				for (int i = 0; i < total_files && loaded_textures; ++i) {
 					// Read in file names
 					std::getline(infs, line);				
 					std::string path = path_prefix + line;

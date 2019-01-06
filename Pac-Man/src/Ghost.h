@@ -23,9 +23,6 @@ protected:
 	// Update position on grid_map_
 	virtual void UpdateMapPos(Level &level) = 0;
 
-	// Calculate the path to the player
-	void CalculatePath(Level &level);
-
 	// Check if the player is within the ghost's scope
 	bool PlayerIsInScope();
 
@@ -35,6 +32,9 @@ protected:
 	// Drift towards the player
 	void Drift(Level &level);
 
+	// Pursues the player
+	void Pursue(Level &level);
+
 	// Calculates the distance wandered
 	void DistanceWandered();
 
@@ -42,6 +42,7 @@ protected:
 
 	// The X and Y offsets of the player
 	Pos player_pos_;
+	Pos player_tile_pos_;
 
 	// Ghost velocity
 	static const int GHOST_VEL_ = 2;
@@ -55,6 +56,19 @@ protected:
 	// The distance to wander
 	int wander_distance_;
 
+private:
+	bool player_is_moving_ = false;
+
+	std::deque<Pos> path_;
+
+	// Calculate the path to the player via BFS
+	std::map<Pos, Pos>GetBFSTraversal(Level &level);
+
+	// Reconstruct the path from BFS
+	std::deque<Pos> ReconstructPathFromBFS(std::map<Pos, Pos> BFS);
+
+	// Follows the path
+	void FollowPath();
 };
 
 #endif // !GHOST_H

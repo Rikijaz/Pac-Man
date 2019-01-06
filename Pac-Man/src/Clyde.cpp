@@ -14,6 +14,11 @@ Clyde::Clyde(Data & data, int pos_x, int pos_y) : Ghost(CLYDE_VEL_) {
 		pos_.x_ = pos_x;
 		pos_.y_ = pos_y;
 
+		double tile_pos_x = static_cast<double>(pos_.x_) / GLOBALS::TILE_WIDTH;
+		double tile_pos_y = static_cast<double>(pos_.y_) / GLOBALS::TILE_HEIGHT;
+		tile_pos_.x_ = static_cast<int>(std::ceil(tile_pos_x));
+		tile_pos_.y_ = static_cast<int>(std::ceil(tile_pos_y));
+
 		// Initialize the collision box dimensions
 		cbox_.w = sprite_sheet_.at(0)->GetWidth();
 		cbox_.h = sprite_sheet_.at(0)->GetHeight();
@@ -46,13 +51,17 @@ Clyde::~Clyde() {
 
 void Clyde::Update(Level & level, int elapsed_time) {
 	GetPlayerPos(level);
-	Wander(level);
-	//Drift(level);
+	if (PlayerIsInScope()) {
+		Pursue(level);
+	}
+	else {
+		Wander(level);
+	}
 	Move(level);
-	DistanceWandered();
 	SetAnimation(elapsed_time);
 }
 
 void Clyde::UpdateMapPos(Level & level) {
-	level.SetCharacterGridTile(CLYDE_CHAR_KEY, pos_.x_, pos_.y_);
+	level.SetCharacterPos(CLYDE_CHAR_KEY, pos_);
+	level.SetCharacterTilePos(CLYDE_CHAR_KEY, tile_pos_.x_, tile_pos_.y_);
 }

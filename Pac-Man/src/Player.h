@@ -44,7 +44,7 @@ private:
 	Input input_;
 
 	// Player velocity
-	static const int PLAYER_VEL_ = 4;
+	static const int PLAYER_VEL_ = 3;
 
 	// Dots eaten counter
 	int pac_dots_eaten_;

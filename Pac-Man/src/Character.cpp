@@ -8,6 +8,8 @@ void Character::Move(Level &level) {
 	p_pos_.x_ = pos_.x_;
 	p_pos_.y_ = pos_.y_;
 
+
+
 	// If appropriate, teleport the player
 	if (!TeleportCharacter(level)) {
 		switch (input_direction_) {
@@ -103,6 +105,9 @@ void Character::MoveRight(Level &level) {
 		pos_.x_ -= intersect_dis;
 		UpdateCBox();
 	}
+
+	double tile_pos_x = static_cast<double>(pos_.x_) / GLOBALS::TILE_WIDTH;
+	tile_pos_.x_ = static_cast<int>(std::ceil(tile_pos_x));
 }
 
 void Character::MoveDown(Level &level) {
@@ -114,6 +119,9 @@ void Character::MoveDown(Level &level) {
 		pos_.y_ -= intersect_dis;
 		UpdateCBox();
 	}
+
+	double tile_pos_y = static_cast<double>(pos_.y_) / GLOBALS::TILE_HEIGHT;
+	tile_pos_.y_ = static_cast<int>(std::ceil(tile_pos_y));
 }
 
 void Character::MoveLeft(Level &level) {
@@ -125,6 +133,9 @@ void Character::MoveLeft(Level &level) {
 		pos_.x_ += intersect_dis;
 		UpdateCBox();
 	}
+
+	double tile_pos_x = static_cast<double>(pos_.x_) / GLOBALS::TILE_WIDTH;
+	tile_pos_.x_ = static_cast<int>(std::ceil(tile_pos_x));
 }
 
 void Character::MoveUp(Level &level) {
@@ -136,6 +147,9 @@ void Character::MoveUp(Level &level) {
 		pos_.y_ += intersect_dis;
 		UpdateCBox();
 	}
+
+	double tile_pos_y = static_cast<double>(pos_.y_) / GLOBALS::TILE_HEIGHT;
+	tile_pos_.y_ = static_cast<int>(std::ceil(tile_pos_y));
 }
 
 bool Character::CanMoveRight(Level & level) {

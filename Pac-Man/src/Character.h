@@ -66,6 +66,8 @@ protected:
 	// The previous X and Y offsets of the character
 	Pos p_pos_;
 
+	Pos p_tile_pos_;
+
 	// The velocity of the character
 	const int VEL_;
 	int vel_x_;

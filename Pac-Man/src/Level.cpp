@@ -57,29 +57,21 @@ void Level::Render(Graphics & graphics) {
 	}
 }
 
-void Level::SetCharacterGridTile(int char_key, int tile_pos_x, int tile_pos_y) {
+void Level::SetCharacterPos(int char_key, Pos pos) {
+	character_pos[char_key] = pos;
+}
+
+void Level::SetCharacterTilePos(int char_key, int tile_pos_x, int tile_pos_y) {
 	character_tile_pos[char_key].x_ = tile_pos_x;
 	character_tile_pos[char_key].y_ = tile_pos_y;
 }
 
-void Level::ResetGridTilesDistance() {
-	for (unsigned y = 0; y < LEVEL_HEIGHT_ - 5; ++y) {
-		for (unsigned x = 0; x < LEVEL_WIDTH_; ++x) {
-			grid_map_[x][y].distance_ = INT_MAX;
-		}	
-	}
+Pos Level::GetCharacterPos(int char_key) {
+	return character_pos[char_key];
 }
 
-GridTile Level::GetCharacterGridTile(int char_key) {
+Pos Level::GetCharacterTilePos(int char_key) {
 	return character_tile_pos[char_key];
-}
-
-int Level::GetCharacterGridTileX(int char_key) {
-	return character_tile_pos[char_key].x_;
-}
-
-int Level::GetCharacterGridTileY(int char_key) {
-	return character_tile_pos[char_key].y_;
 }
 
 std::vector<Tile*> Level::GetTeleportTiles() {
@@ -145,7 +137,8 @@ bool Level::ReadMapAndInstantiateTiles(Data &data) {
 			}
 
 			if (y / TILE_HEIGHT_ >= 3 && y / TILE_HEIGHT_ <= LEVEL_HEIGHT_ - 3) {
-				GridTile new_gridtile = { x / TILE_WIDTH_, y / TILE_HEIGHT_, tile_type };
+				Pos tile_pos = { x / TILE_WIDTH_, y / TILE_HEIGHT_ };
+				GridTile new_gridtile (tile_pos, tile_type);
 				grid_map_[x / TILE_WIDTH_][y / TILE_HEIGHT_] = new_gridtile;
 				//std::cout << grid_map_[x / TILE_WIDTH_][y / TILE_HEIGHT_].type_ << " ";
 			}
@@ -217,10 +210,10 @@ bool Level::ReadMapAndInstantiateTiles(Data &data) {
 
 void Level::SetMapNeighbors() {
 	int x = 0;
-	for (unsigned y = 0; y < LEVEL_HEIGHT_ - 5; ++y) {
-		for (unsigned x = 0; x < LEVEL_WIDTH_; ++x) {
+	for (int y = 0; y < LEVEL_HEIGHT_ - 5; ++y) {
+		for (int x = 0; x < LEVEL_WIDTH_; ++x) {
 			//std::cout << grid_map_[x][y].type_ << "\n";
-			int tile_type = grid_map_[x][y].type_;
+			int tile_type = grid_map_[x][y].GetType();
 			if (tile_type == 0 
 				|| tile_type == 32 
 				|| tile_type == 33 
@@ -231,23 +224,25 @@ void Level::SetMapNeighbors() {
 				Pos west_tile = { x - 1, y };			
 				Pos north_tile = { x, y - 1 };
 
-				grid_map_[x][y].neighbors_.push_back(east_tile);
-				grid_map_[x][y].neighbors_.push_back(south_tile);
-				grid_map_[x][y].neighbors_.push_back(west_tile);
-				grid_map_[x][y].neighbors_.push_back(north_tile);
+				std::vector<Pos> neighbors;
+				neighbors.push_back(east_tile);
+				neighbors.push_back(south_tile);
+				neighbors.push_back(west_tile);
+				neighbors.push_back(north_tile);
 
-				for (unsigned i = 0; i < grid_map_[x][y].neighbors_.size(); ++i) {
-					Pos neighbor_tile = grid_map_[x][y].neighbors_.at(i);
-					int tile_type = grid_map_[neighbor_tile.x_][neighbor_tile.y_].type_;
+				for (unsigned i = 0; i < neighbors.size(); ++i) {
+					Pos neighbor_tile = neighbors.at(i);
+					int tile_type = grid_map_[neighbor_tile.x_][neighbor_tile.y_].GetType();
 					if (
 						!(tile_type == 0 || 
 						tile_type == 32 || 
 						tile_type == 33 || 
 						tile_type == 34 || 
 						tile_type == 35)) {
-						grid_map_[x][y].neighbors_.erase(grid_map_[x][y].neighbors_.begin() + i);
+						neighbors.erase(neighbors.begin() + i);
 					}
 				}
+				grid_map_[x][y].SetNeighbors(neighbors);
 			}
 		}
 	}
@@ -255,11 +250,11 @@ void Level::SetMapNeighbors() {
 	//x = 0;
 	//for (unsigned y = 0; y < LEVEL_HEIGHT_ - 5; ++y) {
 	//	for (unsigned x = 0; x < LEVEL_WIDTH_; ++x) {
-	//		int tile_type = grid_map_[x][y].type_;
+	//		int tile_type = grid_map_[x][y].GetType();
 	//		if (tile_type == 0 || tile_type == 32 || tile_type == 33 || tile_type == 34 || tile_type == 35) {
-	//			std::cout << "[" << x << ", " << y << "] " << grid_map_[x][y].type_ << " Neighbors: ";
-	//			for (unsigned i = 0; i < grid_map_[x][y].neighbors_.size(); ++i) {
-	//				std::cout << "[" << grid_map_[x][y].neighbors_.at(i).x_ << " " << grid_map_[x][y].neighbors_.at(i).y_ << "] ";
+	//			std::cout << "[" << x << ", " << y << "] " << grid_map_[x][y].GetType() << " Neighbors: ";
+	//			for (unsigned i = 0; i < grid_map_[x][y].GetNeighbors().size(); ++i) {
+	//				std::cout << "[" << grid_map_[x][y].GetNeighbors().at(i).x_ << " " << grid_map_[x][y].GetNeighbors().at(i).y_ << "] ";
 	//			}
 	//			std::cout << "\n";
 	//		}

@@ -18,13 +18,16 @@ Player::Player(Data &data, int pos_x, int pos_y) : Character(PLAYER_VEL_) {
 		pos_.x_ = pos_x;
 		pos_.y_ = pos_y;
 
+		double tile_pos_x = static_cast<double>(pos_.x_) / GLOBALS::TILE_WIDTH;
+		double tile_pos_y = static_cast<double>(pos_.y_) / GLOBALS::TILE_HEIGHT;
+		tile_pos_.x_ = static_cast<int>(std::ceil(tile_pos_x));
+		tile_pos_.y_ = static_cast<int>(std::ceil(tile_pos_y));
+
 		// Initialize the collision box dimensions
 		cbox_.w = sprite_sheet_.at(0)->GetWidth();
 		cbox_.h = sprite_sheet_.at(0)->GetHeight();
 		cbox_.x = pos_.x_;
 		cbox_.y = pos_.y_;
-
-		
 
 		// Initialize the velocity
 		vel_x_ = 0;
@@ -59,6 +62,7 @@ Player::~Player() {}
 
 
 void Player::Update(Input &input, Level &level, int elapsed_time) {
+	UpdateMapPos(level);
 	ExecuteInput(input);
 	Move(level);
 	EatDot(level);
@@ -74,7 +78,7 @@ int Player::GetPacPelletsEaten() {
 }
 
 void Player::ExecuteInput(Input &input_) {
-	if (input_.WasKeyHeld(SDL_SCANCODE_RIGHT)) {
+	if (input_.WasKeyPressed(SDL_SCANCODE_RIGHT)) {
 		input_direction_ = MOVING_RIGHT;
 	}
 	if (input_.WasKeyHeld(SDL_SCANCODE_DOWN)) {
@@ -87,8 +91,11 @@ void Player::ExecuteInput(Input &input_) {
 		input_direction_ = MOVING_UP;
 	}
 	if (input_.WasKeyHeld(SDL_SCANCODE_SPACE)) {
+		std::cout << "======================================================\n";
 		std::cout << "Player pos: " << pos_.x_ << ", " << pos_.y_ << "\n";
+		std::cout << "Tile pos: " << tile_pos_.x_ << ", " << tile_pos_.y_ << "\n";
 		//std::cout << "Points: " << pac_dots_eaten_ << " " << pac_pellets_eaten_ << "\n";
+		std::cout << "======================================================\n";
 	}
 }
 
@@ -108,6 +115,7 @@ void Player::EatDot(Level & level) {
 }
 
 void Player::UpdateMapPos(Level & level) {
-	level.SetCharacterGridTile(PAC_MAN_CHAR_KEY, pos_.x_, pos_.y_);
+	level.SetCharacterPos(PAC_MAN_CHAR_KEY, pos_);
+	level.SetCharacterTilePos(PAC_MAN_CHAR_KEY, tile_pos_.x_, tile_pos_.y_);
 }
 

@@ -26,6 +26,9 @@ protected:
 
 	// The X and Y offsets of the entity
 	Pos pos_;
+	
+	// The X and Y tile offsets of the entity
+	Pos tile_pos_;
 
 	// The collision box 
 	SDL_Rect cbox_;

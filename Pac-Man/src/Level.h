@@ -6,17 +6,9 @@
 #include "Graphics.h"
 #include "Data.h"
 #include "Tile.h"
+#include "GridTile.h"
 
-#include<map>
-
-struct GridTile {
-	int x_ = -1;
-	int y_ = -1;
-	int type_ = -1;
-	int distance_ = INT_MAX;
-	bool visited_ = false;
-	std::vector<Pos> neighbors_;
-};
+#include <map>
 
 class Level {
 public:
@@ -30,15 +22,13 @@ public:
 	// Shows the level
 	void Render(Graphics &graphics);
 
-	void SetCharacterGridTile(int char_key, int tile_pos_x, int tile_pos_y);
+	void SetCharacterPos(int char_key, Pos pos);
 
-	void ResetGridTilesDistance();
+	void SetCharacterTilePos(int char_key, int tile_pos_x, int tile_pos_y);
 
-	GridTile GetCharacterGridTile(int char_key);
+	Pos GetCharacterPos(int char_key);
 
-	int GetCharacterGridTileX(int char_key);
-
-	int GetCharacterGridTileY(int char_key);
+	Pos GetCharacterTilePos(int char_key);
 
 	// Returns teleport_tiles_
 	std::vector<Tile*> GetTeleportTiles();
@@ -90,7 +80,9 @@ private:
 	// Initialize path_map_'s grid_tile's neighbors
 	void SetMapNeighbors();
 
-	GridTile character_tile_pos[MAX_CHARACTERS];
+	Pos character_pos[MAX_CHARACTERS];
+
+	Pos character_tile_pos[MAX_CHARACTERS];
 
 	std::vector<Tile*> path_tiles_;
 	std::vector<Tile*> teleport_tiles_;
