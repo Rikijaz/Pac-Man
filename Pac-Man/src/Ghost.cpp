@@ -109,10 +109,10 @@ void Ghost::Pursue(Level & level) {
 	if (path_.empty()) {
 		std::map<Pos, Pos> bfs = GetBFSTraversal(level);
 		path_ = ReconstructPathFromBFS(bfs);
+		path_history_ = path_;
 	}
-	else {
-		FollowPath();
-	}
+
+	FollowPath();
 }
 
 void Ghost::GetPlayerPos(Level &level) {
@@ -127,10 +127,18 @@ std::map<Pos, Pos> Ghost::GetBFSTraversal(Level & level) {
 	frontier.push(start_tile);
 
 	std::map<Pos, Pos> bfs;
-	bfs[start_tile] = start_tile;
+	//bfs[start_tile] = start_tile;
+	
+	int iter = 0;
+
+	Pos empty_pos = { 0, 0 };
 
 	bool quit = false;
 	while (!frontier.empty() && !quit) {
+		if (iter >= 200) {
+			start_tile.Output();
+			end_tile.Output();
+		}
 		Pos current = frontier.front();
 		frontier.pop();
 
@@ -141,15 +149,36 @@ std::map<Pos, Pos> Ghost::GetBFSTraversal(Level & level) {
 		std::vector<Pos> neighbors = level.grid_map_[current.x_][current.y_].GetNeighbors();
 		for (unsigned i = 0; i < neighbors.size(); ++i) {
 			if (!bfs.count(neighbors.at(i))) {
+				//if (neighbors.at(i) == empty_pos) {
+				//	std::cout << "===============================================\n";
+				//	std::cout << "Current: ";
+				//	current.Output();
+				//	std::cout << "Start: ";
+				//	start_tile.Output();
+				//	std::cout << "End: ";
+				//	end_tile.Output();
+				//	std::cout << "===============================================\n";
+				//}
+
+				//if (current == empty_pos) {
+				//	std::cout << "===============================================\n";
+				//	std::cout << "Current is empty: ";
+				//	std::cout << "===============================================\n";
+				//	current.Output();
+				//}
+
 				frontier.push(neighbors.at(i));
 				bfs[neighbors.at(i)] = current;
 
-				if (bfs[neighbors.at(i)] == end_tile) {
-					quit = true;
-				}
+				//if (bfs[neighbors.at(i)] == end_tile) {
+				//	quit = true;
+				//}
 			}
 		}
+		iter++;
 	}
+
+	
 
 	return bfs;
 }
@@ -159,9 +188,26 @@ std::deque<Pos> Ghost::ReconstructPathFromBFS(std::map<Pos, Pos> BFS) {
 	Pos start_tile = tile_pos_;
 	Pos end_tile = player_tile_pos_;
 
+	int iter = 0;
 	Pos current = end_tile;
 	bool start_found = false;
 	while (!start_found) {
+		if (iter >= 200) {
+			std::cout << "Start: ";
+			start_tile.Output();
+			std::cout << "End: ";
+			end_tile.Output();
+			std::cout << "Path:\n";
+			for (auto x : path) {
+				x.Output();
+			}
+			std::cout << "BFS:\n";
+			for (auto const &it : BFS) {
+				std::cout << it.first.x_ << ", " << it.first.y_ << " -> " << it.second.x_ << ", " << it.second.y_ << "\n";
+			}
+			int x;
+			std::cin >> x;
+		}
 		if (current == start_tile) {
 			start_found = true;
 		}
@@ -170,6 +216,7 @@ std::deque<Pos> Ghost::ReconstructPathFromBFS(std::map<Pos, Pos> BFS) {
 			path.push_front(current);
 			current = came_from;
 		}
+		iter++;
 	}
 
 	return path;
@@ -200,11 +247,15 @@ void Ghost::FollowPath() {
 			input_direction_ = MOVING_UP;
 		}
 		else {
-			std::cout << "Error: Ghost cannot calculate direction./n";
+			std::cout << "Error: Ghost cannot calculate direction.\n";
 			std::cout << "Current ";
 			tile_pos_.Output();
 			std::cout << "Next ";
 			next_tile.Output();
+			std::cout << "Path:\n";
+			for (auto x : path_history_) {
+				x.Output();
+			}
 		}
 	}
 }

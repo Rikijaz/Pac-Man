@@ -26,4 +26,14 @@ struct Pos {
 	bool operator<(const Pos &rhs)  const { return x_ < rhs.x_ || x_ == rhs.x_ && y_ < rhs.y_; };
 };
 
+struct TilePos {
+	double x_;
+	double y_;
+
+	void Output() { std::cout << "TilePos: [" << x_ << ", " << y_ << "]\n"; }
+
+	bool operator==(const TilePos &rhs) const { return (x_ == rhs.x_ && y_ == rhs.y_); };
+	bool operator<(const TilePos &rhs)  const { return x_ < rhs.x_ || x_ == rhs.x_ && y_ < rhs.y_; };
+};
+
 #endif // !GLOBALS_H

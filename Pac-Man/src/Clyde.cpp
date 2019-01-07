@@ -50,14 +50,19 @@ Clyde::~Clyde() {
 }
 
 void Clyde::Update(Level & level, int elapsed_time) {
+	std::cout << "Clyde\n";
 	GetPlayerPos(level);
 	if (PlayerIsInScope()) {
 		Pursue(level);
+		//std::cout << "Clyde is pursuing.\n";
 	}
 	else {
-		Wander(level);
+		Pursue(level);
+		//std::cout << "Clyde is wandering.\n";
 	}
 	Move(level);
+	pos_.Output();
+	tile_pos_.Output();
 	SetAnimation(elapsed_time);
 }
 

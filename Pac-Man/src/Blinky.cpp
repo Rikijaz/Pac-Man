@@ -50,14 +50,19 @@ Blinky::~Blinky() {
 }
 
 void Blinky::Update(Level & level, int elapsed_time) {
+	//std::cout << "Blinky\n";
 	GetPlayerPos(level);
 	if (PlayerIsInScope()) {
 		Pursue(level);
+		//std::cout << "Blinky is pursuing.\n";
 	}
 	else {
-		Wander(level);
+		Pursue(level);
+		//std::cout << "Blinky is wandering.\n";
 	}
 	Move(level);
+	pos_.Output();
+	tile_pos_.Output();
 	SetAnimation(elapsed_time);
 }
 

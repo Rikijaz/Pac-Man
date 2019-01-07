@@ -60,6 +60,7 @@ private:
 	bool player_is_moving_ = false;
 
 	std::deque<Pos> path_;
+	std::deque<Pos> path_history_;
 
 	// Calculate the path to the player via BFS
 	std::map<Pos, Pos>GetBFSTraversal(Level &level);
@@ -69,6 +70,7 @@ private:
 
 	// Follows the path
 	void FollowPath();
+
 };
 
 #endif // !GHOST_H
