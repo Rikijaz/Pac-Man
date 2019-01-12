@@ -50,23 +50,22 @@ Clyde::~Clyde() {
 }
 
 void Clyde::Update(Level & level, int elapsed_time) {
-	std::cout << "Clyde\n";
+	//std::cout << "Clyde\n";
 	GetPlayerPos(level);
 	if (PlayerIsInScope()) {
 		Pursue(level);
 		//std::cout << "Clyde is pursuing.\n";
 	}
 	else {
-		Pursue(level);
+		Wander(level);
 		//std::cout << "Clyde is wandering.\n";
 	}
 	Move(level);
-	pos_.Output();
-	tile_pos_.Output();
 	SetAnimation(elapsed_time);
 }
 
 void Clyde::UpdateMapPos(Level & level) {
 	level.SetCharacterPos(CLYDE_CHAR_KEY, pos_);
 	level.SetCharacterTilePos(CLYDE_CHAR_KEY, tile_pos_.x_, tile_pos_.y_);
+	level.SetCharacterCBox(CLYDE_CHAR_KEY, cbox_);
 }

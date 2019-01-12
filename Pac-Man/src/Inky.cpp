@@ -50,23 +50,22 @@ Inky::~Inky() {
 }
 
 void Inky::Update(Level & level, int elapsed_time) {
-	std::cout << "Inky\n";
+	//std::cout << "Inky\n";
 	GetPlayerPos(level);
 	if (PlayerIsInScope()) {
 		Pursue(level);
 		//std::cout << "Inky is pursuing.\n";
 	}
 	else {
-		Pursue(level);
+		Wander(level);
 		//std::cout << "Inky is wandering.\n";
 	}
 	Move(level);
-	pos_.Output();
-	tile_pos_.Output();
 	SetAnimation(elapsed_time);
 }
 
 void Inky::UpdateMapPos(Level & level) {
 	level.SetCharacterPos(INKY_CHAR_KEY, pos_);
 	level.SetCharacterTilePos(INKY_CHAR_KEY, tile_pos_.x_, tile_pos_.y_);
+	level.SetCharacterCBox(INKY_CHAR_KEY, cbox_);
 }

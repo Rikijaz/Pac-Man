@@ -12,8 +12,8 @@ namespace GLOBALS {
 	const int SCREEN_HEIGHT = static_cast<int>(1152 * RES_SCALE_Y);
 	const int LEVEL_WIDTH = 896;
 	const int LEVEL_HEIGHT = 1152;
-	const int TILE_WIDTH = 32;
-	const int TILE_HEIGHT = 32;
+	const double TILE_WIDTH = 32;
+	const double TILE_HEIGHT = 32;
 }
 
 struct Pos {

@@ -26,6 +26,9 @@ protected:
 	// Check if the player is within the ghost's scope
 	bool PlayerIsInScope();
 
+	// Check if the ghost's cbox has collided with the player's cbox
+	bool IsCollidingWithPlayer();
+
 	// Wanders around the map
 	void Wander(Level &level);
 
@@ -35,9 +38,6 @@ protected:
 	// Pursues the player
 	void Pursue(Level &level);
 
-	// Calculates the distance wandered
-	void DistanceWandered();
-
 	void GetPlayerPos(Level &level);
 
 	// The X and Y offsets of the player
@@ -45,7 +45,7 @@ protected:
 	Pos player_tile_pos_;
 
 	// Ghost velocity
-	static const int GHOST_VEL_ = 2;
+	static const int GHOST_VEL_ = 1;
 
 	// Ghost range
 	static const int GHOST_RANGE_ = 5;
@@ -59,7 +59,10 @@ protected:
 private:
 	bool player_is_moving_ = false;
 
+	SDL_Rect player_cbox_;
+
 	std::deque<Pos> path_;
+
 	std::deque<Pos> path_history_;
 
 	// Calculate the path to the player via BFS

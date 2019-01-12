@@ -117,5 +117,6 @@ void Player::EatDot(Level & level) {
 void Player::UpdateMapPos(Level & level) {
 	level.SetCharacterPos(PAC_MAN_CHAR_KEY, pos_);
 	level.SetCharacterTilePos(PAC_MAN_CHAR_KEY, tile_pos_.x_, tile_pos_.y_);
+	level.SetCharacterCBox(PAC_MAN_CHAR_KEY, cbox_);
 }
 

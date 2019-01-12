@@ -57,12 +57,10 @@ void Blinky::Update(Level & level, int elapsed_time) {
 		//std::cout << "Blinky is pursuing.\n";
 	}
 	else {
-		Pursue(level);
+		Wander(level);
 		//std::cout << "Blinky is wandering.\n";
 	}
 	Move(level);
-	pos_.Output();
-	tile_pos_.Output();
 	SetAnimation(elapsed_time);
 }
 

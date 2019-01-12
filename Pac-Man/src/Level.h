@@ -22,6 +22,10 @@ public:
 	// Shows the level
 	void Render(Graphics &graphics);
 
+	void SetCharacterCBox(int char_key, SDL_Rect cbox);
+
+	SDL_Rect GetCharacterCBox(int char_key);
+
 	void SetCharacterPos(int char_key, Pos pos);
 
 	void SetCharacterTilePos(int char_key, int tile_pos_x, int tile_pos_y);
@@ -79,6 +83,8 @@ private:
 
 	// Initialize path_map_'s grid_tile's neighbors
 	void SetMapNeighbors();
+
+	SDL_Rect character_cbox_[MAX_CHARACTERS];
 
 	Pos character_pos[MAX_CHARACTERS];
 

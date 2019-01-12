@@ -10,15 +10,19 @@ Ghost::Ghost(int vel) : Character(vel) {}
 bool Ghost::PlayerIsInScope() {
 	bool is_in_scope = false;
 
-	int x_diff = player_tile_pos_.x_ - tile_pos_.x_;
-	int y_diff = player_tile_pos_.y_ - tile_pos_.y_;
-	int distance = static_cast<int>(std::sqrt(x_diff * x_diff + y_diff * y_diff));
+	double x_diff = player_tile_pos_.x_ - tile_pos_.x_;
+	double y_diff = player_tile_pos_.y_ - tile_pos_.y_;
+	double distance = std::sqrt(x_diff * x_diff + y_diff * y_diff);
 
 	if (distance <= GHOST_RANGE_) {
 		is_in_scope = true;
 	}
 
 	return is_in_scope;
+}
+
+bool Ghost::IsCollidingWithPlayer() {
+	return CheckCollision(player_cbox_);
 }
 
 void Ghost::Wander(Level &level) {
@@ -106,18 +110,21 @@ void Ghost::Drift(Level & level) {
 }
 
 void Ghost::Pursue(Level & level) {
-	if (path_.empty()) {
-		std::map<Pos, Pos> bfs = GetBFSTraversal(level);
-		path_ = ReconstructPathFromBFS(bfs);
-		path_history_ = path_;
-	}
+	if (!IsCollidingWithPlayer()) {
+		if (path_.empty()) {
+			std::map<Pos, Pos> bfs = GetBFSTraversal(level);
+			path_ = ReconstructPathFromBFS(bfs);
+			path_history_ = path_;
+		}
 
-	FollowPath();
+		FollowPath();
+	}
 }
 
 void Ghost::GetPlayerPos(Level &level) {
 	player_pos_ = level.GetCharacterPos(PAC_MAN_CHAR_KEY);
 	player_tile_pos_ = level.GetCharacterTilePos(PAC_MAN_CHAR_KEY);
+	player_cbox_ = level.GetCharacterCBox(PAC_MAN_CHAR_KEY);
 }
 
 std::map<Pos, Pos> Ghost::GetBFSTraversal(Level & level) {
@@ -135,10 +142,6 @@ std::map<Pos, Pos> Ghost::GetBFSTraversal(Level & level) {
 
 	bool quit = false;
 	while (!frontier.empty() && !quit) {
-		if (iter >= 200) {
-			start_tile.Output();
-			end_tile.Output();
-		}
 		Pos current = frontier.front();
 		frontier.pop();
 
@@ -192,22 +195,22 @@ std::deque<Pos> Ghost::ReconstructPathFromBFS(std::map<Pos, Pos> BFS) {
 	Pos current = end_tile;
 	bool start_found = false;
 	while (!start_found) {
-		if (iter >= 200) {
-			std::cout << "Start: ";
-			start_tile.Output();
-			std::cout << "End: ";
-			end_tile.Output();
-			std::cout << "Path:\n";
-			for (auto x : path) {
-				x.Output();
-			}
-			std::cout << "BFS:\n";
-			for (auto const &it : BFS) {
-				std::cout << it.first.x_ << ", " << it.first.y_ << " -> " << it.second.x_ << ", " << it.second.y_ << "\n";
-			}
-			int x;
-			std::cin >> x;
-		}
+		//if (iter >= 200) {
+		//	std::cout << "Start: ";
+		//	start_tile.Output();
+		//	std::cout << "End: ";
+		//	end_tile.Output();
+		//	std::cout << "Path:\n";
+		//	for (auto x : path) {
+		//		x.Output();
+		//	}
+		//	std::cout << "BFS:\n";
+		//	for (auto const &it : BFS) {
+		//		std::cout << it.first.x_ << ", " << it.first.y_ << " -> " << it.second.x_ << ", " << it.second.y_ << "\n";
+		//	}
+		//	int x;
+		//	std::cin >> x;
+		//}
 		if (current == start_tile) {
 			start_found = true;
 		}
@@ -218,12 +221,24 @@ std::deque<Pos> Ghost::ReconstructPathFromBFS(std::map<Pos, Pos> BFS) {
 		}
 		iter++;
 	}
+	//std::cout << "+++++++++++++++++++++++++++++++++\n";
+	//for (auto x : path) {
+	//	x.Output();
+	//}
+	//std::cout << "+++++++++++++++++++++++++++++++++\n";
 
 	return path;
 }
 
 void Ghost::FollowPath() {
-	if (path_.front() == tile_pos_) {
+	//double next_pos_x = static_cast<double>(path_.front().x_);
+	//double next_pos_y = static_cast<double>(path_.front().y_);
+
+	//if ((next_pos_x == pos_.x_ / GLOBALS::TILE_WIDTH) && (next_pos_y == GLOBALS::TILE_HEIGHT)) {
+	//	path_.pop_front();
+	//}
+
+	if (((abs(path_.front().x_ - pos_.x_ / GLOBALS::TILE_WIDTH) <= DBL_EPSILON)) && abs(path_.front().y_ - GLOBALS::TILE_HEIGHT <= DBL_EPSILON)) {
 		path_.pop_front();
 	}
 	
@@ -231,31 +246,52 @@ void Ghost::FollowPath() {
 		Pos next_tile = path_.front();
 
 		// If the next step is east
-		if (next_tile.x_ > tile_pos_.x_ && next_tile.y_ == tile_pos_.y_) {
+		if (next_tile.x_ > pos_.x_ / GLOBALS::TILE_WIDTH && next_tile.y_ == pos_.y_ / GLOBALS::TILE_HEIGHT) {
 			input_direction_ = MOVING_RIGHT;
+			//std::cout << "Moving right.\n";
 		}
 		// If the next step is west
-		else if (next_tile.x_ < tile_pos_.x_ && next_tile.y_ == tile_pos_.y_) {
+		else if (next_tile.x_ < pos_.x_ / GLOBALS::TILE_WIDTH && next_tile.y_ == pos_.y_ / GLOBALS::TILE_HEIGHT) {
 			input_direction_ = MOVING_LEFT;
+			//std::cout << "Moving left.\n";
 		}
 		// If the next step is south
-		else if (next_tile.x_ == tile_pos_.x_ && next_tile.y_ > tile_pos_.y_) {
+		else if (next_tile.x_ == pos_.x_ / GLOBALS::TILE_WIDTH && next_tile.y_ > pos_.y_ / GLOBALS::TILE_HEIGHT) {
 			input_direction_ = MOVING_DOWN;
+			//std::cout << "Moving down.\n";
 		}
 		// If the next step is north
-		else if (next_tile.x_ == tile_pos_.x_ && next_tile.y_ < tile_pos_.y_) {
+		else if (next_tile.x_ == pos_.x_ / GLOBALS::TILE_WIDTH && next_tile.y_ < pos_.y_ / GLOBALS::TILE_HEIGHT) {
 			input_direction_ = MOVING_UP;
+			//std::cout << "Moving up.\n";
 		}
+		//// If the next step is east
+		//if (next_tile.x_ > tile_pos_.x_ && next_tile.y_ == tile_pos_.y_) {
+		//	input_direction_ = MOVING_RIGHT;
+		//}
+		//// If the next step is west
+		//else if (next_tile.x_ < tile_pos_.x_ && next_tile.y_ == tile_pos_.y_) {
+		//	input_direction_ = MOVING_LEFT;
+		//}
+		//// If the next step is south
+		//else if (next_tile.x_ == tile_pos_.x_ && next_tile.y_ > tile_pos_.y_) {
+		//	input_direction_ = MOVING_DOWN;
+		//}
+		//// If the next step is north
+		//else if (next_tile.x_ == tile_pos_.x_ && next_tile.y_ < tile_pos_.y_) {
+		//	input_direction_ = MOVING_UP;
+		//}
 		else {
-			std::cout << "Error: Ghost cannot calculate direction.\n";
-			std::cout << "Current ";
-			tile_pos_.Output();
-			std::cout << "Next ";
-			next_tile.Output();
-			std::cout << "Path:\n";
-			for (auto x : path_history_) {
-				x.Output();
-			}
+			//std::cout << "Error: Ghost cannot calculate direction.\n";
+			//std::cout << "Path:\n";
+			//for (auto x : path_history_) {
+			//	x.Output();
+			//}
 		}
+
+		//std::cout << "Current ";
+		//std::cout << pos_.x_ / GLOBALS::TILE_WIDTH << ", " << pos_.y_ / GLOBALS::TILE_HEIGHT << "\n";
+		//std::cout << "Next ";
+		//next_tile.Output();
 	}
 }
